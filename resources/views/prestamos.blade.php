@@ -2,9 +2,28 @@
 
 @section('content')
 @include('sweetalert::alert')
-<div class="container p-4" style="background-color: #00000085; color: white;">
+<div class="container p-4" >
     <div class="row text-center" >
     <h2 >Prestamos</h2>
+    <div class="row justify-content-center pr-3 pb-3">
+      <div class="p-2">
+        <form action="{{route('buscarPrestamo')}}" method="POST">
+          @csrf
+          <input type="search" class="input-search col-md-8 col-sm-8" name="buscar" id="buscar" autocomplete="off" placeholder="Buscar por titulo, autor, editorial o tema" value="{{$buscar != ''?$buscar:''}}">
+          @if ($libros->count() == 0)
+            <button type="submit" class="button-search" disabled><i class="fas fa-search"></i> Buscar</button>
+            @if ($buscar != '' || $libros->count() == 0)
+            <a class=" button-search-cancelar" href="{{route('prestamos')}}"><i class="fas fa-times"></i> Cancelar</a>
+            @endif
+            @else
+            <button type="submit" class="button-search"><i class="fas fa-search"></i> Buscar</button>
+            @if ($buscar != '')
+            <a class="button-search-cancelar" href="{{route('prestamos')}}"><i class="fas fa-times"></i> Cancelar</a>
+            @endif
+          @endif
+        </form>
+      </div>
+    </div>
     </div>
     @if ($usuarios->count() == 0)
     <div class="row text-center">
@@ -24,8 +43,8 @@
         <i class="fas fa-plus"></i> Nuevo Prestamo
     </button>
     <div class="row table-responsive" >
-        <table class="table table-dark table-striped">
-            <thead>
+        <table class="table table-striped">
+            <thead class="table-dark">
                 <tr>
                   <th scope="col">Titulo</th>
                   <th scope="col">Autor</th>
@@ -39,19 +58,21 @@
                 @foreach($prestamos as $prestamo)
                 <tr>
                     @foreach ($libros as $libro)
-                    <td>{{$prestamo->idLibro == $libro->id?ucwords($libro->titulo):''}}</td>
-                    <td>{{$prestamo->idLibro == $libro->id?ucwords($libro->autor):''}}</td>
+                    @if($prestamo->idLibro == $libro->id)
+                    <td>{{ucwords($libro->titulo)}}</td>
+                    <td>{{ucwords($libro->autor)}}</td>
+                    @endif
                     @endforeach
                   
                     @foreach ($usuarios as $usuario)
                     {{-- {{$nombreCompleto = $usuario->nombre + $usuario->nombre +$usuario->nombre}} --}}
-                    <td>{{$prestamo->idUsuario == $usuario->id?ucwords($usuario->nombre).ucwords($usuario->apellidoP).ucwords($usuario->apellidoM):''}}</td>
+                    <td>{{$prestamo->idUsuario == $usuario->id?ucwords($usuario->nombre).' '.ucwords($usuario->apellidoP).' '.ucwords($usuario->apellidoM):''}}</td>
                     @endforeach
                     <td>{{$prestamo->prestamo}}</td>
                     <td>{{$prestamo->entrega}}</td>
                   <td>
-                    <a href="modificarlibro/{{$prestamo->id}}" class="link-primary" title="Modificar"><i class="fas fa-edit"></i></a>
-                    <form action="{{route('eliminaLibro',['id'=>$prestamo->id])}}" name="eliminarLibro" method="post">@csrf<button type="button" onclick="eliminar()" class="link-primary" style="border:none; padding: 0; background: none;" title="Eliminar"><i class="fas fa-trash"></i></button></form>
+                    <a href="modificarlibro/{{$prestamo->id}}" style="color: #0f9fd6;" title="Modificar"><i class="fas fa-edit"></i></a>
+                    <form action="{{route('eliminaLibro',['id'=>$prestamo->id])}}" name="eliminarLibro" method="post">@csrf<button type="button" onclick="eliminar()" style="border:none; padding: 0; background: none; color: #0f9fd6;" title="Eliminar"><i class="fas fa-trash"></i></button></form>
                   </td>
                 </tr>
                 @endforeach

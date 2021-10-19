@@ -30,3 +30,4 @@ Route::POST('/eliminaLibro/{id}', 'adminitradorController@eliminaLibro')->middle
 Route::POST('/guardaModificacionLibro/{id}', 'adminitradorController@modificaLibroPOST')->middleware('auth')->name('modificaLibro');
 Route::get('/modificarlibro/{id}', 'adminitradorController@modificaGET')->middleware('auth')->name('modificarlibro');
 Route::post('/buscar','adminitradorController@buscarLibro')->name('buscar');
+Route::post('/buscarPrestamo','adminitradorController@buscarPrestamo')->name('buscarPrestamo');

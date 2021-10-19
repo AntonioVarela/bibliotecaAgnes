@@ -16,7 +16,12 @@
            body {
                background-image: url("img/biblioteca.jpg");
                background-repeat: no-repeat;
-               background-size:cover
+               background-position: center center;
+               background-attachment: fixed;
+               -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
                 }
 
                 .carta {

@@ -37,7 +37,6 @@ class adminitradorController extends Controller
     
     public function modificaGET($id) {
         $libro = libro::find($id);
-        // DD($libro);
         return view('modificaLibro')->with('libro',$libro);
     }
     public function modificaLibroPOST(Request $request, $id){
@@ -63,7 +62,7 @@ class adminitradorController extends Controller
         $usuarios = usuarios::all();
         $libros = libro::all();
         $prestamos = prestamo::paginate(10);
-        return view('prestamos')->with('usuarios',$usuarios)->with('libros',$libros)->with('prestamos', $prestamos);
+        return view('prestamos')->with('usuarios',$usuarios)->with('libros',$libros)->with('prestamos', $prestamos)->with('buscar','');
     }
 
     public function eliminaLibro($id) {
@@ -76,6 +75,11 @@ class adminitradorController extends Controller
     public function buscarLibro(Request $request ) {
         $libros = libro::where('titulo',$request['buscar'])->orWhere('autor',$request['buscar'])->orWhere('editorial',$request['buscar'])->orWhere('tema',$request['buscar'])->paginate(10);
         return view('home')->with('libros',$libros)->with('buscar',$request['buscar']);
+    }
+
+    public function buscarPrestamo(Request $request ) {
+        $prestamos = prestamo::where('titulo',$request['buscar'])->orWhere('autor',$request['buscar'])->orWhere('editorial',$request['buscar'])->orWhere('tema',$request['buscar'])->paginate(10);
+        return view('home')->with('libros',$prestamos)->with('buscar',$request['buscar']);
     }
 
     public function usuariosPOST(Request $request) {
