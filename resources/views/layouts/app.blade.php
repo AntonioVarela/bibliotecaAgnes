@@ -71,8 +71,15 @@
                     bottom: 20px;
                     right: 20px;
                 }
-                
 } 
+.menu-a:hover {
+background-color: #3f109e;
+color:white !important;
+font-weight: bold;
+}
+.menu-a:active {
+    background-color:#E91E63 !important;
+}
     </style>
 </head>
 <body>
@@ -106,16 +113,16 @@
                             @endif --}}
                         @else
                         <li>
-                            <a class="nav-link" href="{{ route('home') }}">Inicio</a>
+                            <a class="nav-link menu-a" href="{{ route('home') }}">Inicio</a>
                             </li>
                             <li>
-                                <a class="nav-link" href="{{ route('prestamos') }}">Prestamos</a>
+                                <a class="nav-link menu-a" href="{{ route('prestamos') }}">Prestamos</a>
                             </li>
                             <li>
-                                <a class="nav-link" href="{{route('usuarios')}}">Usuarios</a>
+                                <a class="nav-link menu-a" href="{{route('usuarios')}}">Usuarios</a>
                             </li>
                             <li>
-                                <a class="nav-link" href="home">Informes</a>
+                                <a class="nav-link menu-a" href="home">Informes</a>
                             </li>
                             
                             <li class="nav-item dropdown">
