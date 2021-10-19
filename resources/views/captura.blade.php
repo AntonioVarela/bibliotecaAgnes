@@ -8,21 +8,21 @@
         <h2>Agregar Libro</h2>
         <div class="col-6">
             <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon3">Titulo</span>
+                <span class="input-group-text" id="basic-addon3">Titulo <span class="text-danger">*</span></span>
                 <input type="text" class="form-control" id="titulo" name="titulo" aria-describedby="basic-addon3" required>
             </div>  
         </div>
               <div class="col-6">
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon3">Identificador</span>
-                    <input type="text" class="form-control" id="identificador" name="identificador" required aria-describedby="basic-addon3">
+                    <span class="input-group-text" id="basic-addon3">Identificador <span class="text-danger">*</span></span>
+                    <input type="text" class="form-control" id="identificador" name="identificador" value="{{$cuenta+1}}" required aria-describedby="basic-addon3">
                 </div>  
               </div>
     </div>
     <div class="row">
         <div class="col-6">
             <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon3">Autor</span>
+                <span class="input-group-text" id="basic-addon3">Autor <span class="text-danger">*</span></span>
                 <input type="text" class="form-control" id="autor" name="autor" required  aria-describedby="basic-addon3">
                 
             </div>
@@ -69,7 +69,7 @@
         <div class="col-3">
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon3">Tema</span>
-                <select class="form-control" id="tema" name="tema" aria-describedby="basic-addon3">
+                <select class="form-select" id="tema" name="tema" aria-describedby="basic-addon3">
                     <option value="Español">Español</option>
                     <option value="Matematicas">Matematicas</option>
                     <option value="Geografia">Geografia</option>
@@ -86,7 +86,7 @@
         <div class="col-3">
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon3">Idioma</span>
-                <select class="form-control" id="idioma" name="idioma" aria-describedby="basic-addon3">
+                <select class="form-select" id="idioma" name="idioma" aria-describedby="basic-addon3">
                     <option value="Español">Español</option>
                     <option value="ingles">Ingles</option>
                 </select>
@@ -95,7 +95,7 @@
         <div class="col-3">
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon3">Tipo</span>
-                <select class="form-control" id="tipo" name="tipo"  aria-describedby="basic-addon3">
+                <select class="form-select" id="tipo" name="tipo"  aria-describedby="basic-addon3">
                     <option value="Libro">Libro</option>
                     <option value="Comic">Comic</option>
                     <option value="Revista">Revista</option>

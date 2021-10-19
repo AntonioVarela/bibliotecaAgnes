@@ -69,25 +69,39 @@
         <div class="col-3">
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon3">Tema</span>
-                <select class="form-control" id="tema" name="tema" value="{{$libro->tema =! '' ? $libro->tema : ""}}" aria-describedby="basic-addon3">
-                    <option value="ninguno">Ninguno</option>
+                <select class="form-control" id="tema" name="tema" aria-describedby="basic-addon3">
+                    <option value="Español" {{$libro->tema == "Español"?'selected': ''}}>Español</option>
+                    <option value="Matematicas" {{$libro->tema == "Matematicas"?'selected': ''}}>Matematicas</option>
+                    <option value="Geografia" {{$libro->tema == "Geografia"?'selected': ''}}>Geografia</option>
+                    <option value="Historia" {{$libro->tema == "Historia"?'selected': ''}}>Historia</option>
+                    <option value="Literatura" {{$libro->tema == "Literatura"?'selected': ''}}>Literatura</option>
+                    <option value="Gramatica" {{$libro->tema == "Gramatica"?'selected': ''}}>Gramatica</option>
+                    <option value="Biologia" {{$libro->tema == "Biologia"?'selected': ''}}>Biologia</option>
+                    <option value="Quimica" {{$libro->tema == "Quimica"?'selected': ''}}>Quimica</option>
+                    <option value="Fisica" {{$libro->tema == "Fisica"?'selected': ''}}>Fisica</option>
+                    <option value="Otro" {{$libro->tema == "Otro"?'selected': ''}}>Otro</option>
                 </select>
             </div>
         </div>
         <div class="col-3">
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon3">Idioma</span>
-                <select class="form-control" id="idioma" name="idioma" value="{{$libro->idioma =! '' ? $libro->idioma : ""}}" aria-describedby="basic-addon3">
-                    <option value="Español">Español</option>
-                    <option value="ingles">Ingles</option>
+                <select class="form-control" id="idioma" name="idioma" aria-describedby="basic-addon3">
+                    <option value="Español" {{$libro->idioma == "Español"?'selected': ''}}>Español</option>
+                    <option value="Ingles"  {{$libro->idioma == "Ingles"?'selected': ''}}>Ingles</option>
                 </select>
             </div>
         </div>
         <div class="col-3">
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon3">Tipo</span>
-                <select class="form-control" id="tipo" name="tipo" value="{{$libro->tipo =! '' ? $libro->tipo : ""}}" aria-describedby="basic-addon3">
-                    <option value="libro">Libro</option>
+                <select class="form-control" id="tipo" name="tipo" aria-describedby="basic-addon3">
+                    <option value="Libro" {{$libro->tipo == "Libro"?'selected': ''}}>Libro</option>
+                    <option value="Comic" {{$libro->tipo == "Comic"?'selected': ''}}>Comic</option>
+                    <option value="Revista" {{$libro->tipo == "Revista"?'selected': ''}}>Revista</option>
+                    <option value="Diccionario" {{$libro->tipo == "Diccionario"?'selected': ''}}>Diccionario</option>
+                    <option value="Monografías" {{$libro->tipo == "Monografías"?'selected': ''}}>Monografías</option>
+                    <option value="Recreativos" {{$libro->tipo == "Recreativos"?'selected': ''}}>Recreativos</option>
                 </select>
             </div>
         </div>

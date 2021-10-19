@@ -12,8 +12,8 @@ class adminitradorController extends Controller
     
     public function captura()
     {
-        $libro = new libro();
-        return view('captura')->with('libro',$libro);
+        $libros = libro::all();
+        return view('captura')->with('cuenta',count($libros));
     }
     public function capturaPOST(Request $request)
     {
