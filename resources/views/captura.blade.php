@@ -96,7 +96,12 @@
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon3">Tipo</span>
                 <select class="form-control" id="tipo" name="tipo"  aria-describedby="basic-addon3">
-                    <option value="libro">Libro</option>
+                    <option value="Libro">Libro</option>
+                    <option value="Comic">Comic</option>
+                    <option value="Revista">Revista</option>
+                    <option value="Diccionario">Diccionario</option>
+                    <option value="Monografías">Monografías</option>
+                    <option value="Recreativos">Recreativos</option>
                 </select>
             </div>
         </div>
