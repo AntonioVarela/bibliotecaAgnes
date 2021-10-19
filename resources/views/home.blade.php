@@ -49,18 +49,52 @@
               <tbody>
                 @foreach($libros as $libro)
                 <tr>
-                  <th scope="row">{{$libro->id}}</th>
-                  <td>{{ucwords($libro->titulo)}}</td>
-                  <td>{{ucwords($libro->autor)}}</td>
-                  <td>{{ucwords($libro->editorial)}}</td>
-                  <td>{{$libro->NEdicion}}</td>
-                  <td>{{$libro->tema}}</td>
-                  <td>{{$libro->tipo}}</td>
+                  <th  data-toggle="modal" data-target="#modelId{{$libro->id}}" scope="row">{{$libro->id}}</th>
+                  <td data-toggle="modal" data-target="#modelId{{$libro->id}}">{{ucwords($libro->titulo)}}</td>
+                  <td data-toggle="modal" data-target="#modelId{{$libro->id}}">{{ucwords($libro->autor)}}</td>
+                  <td data-toggle="modal" data-target="#modelId{{$libro->id}}">{{ucwords($libro->editorial)}}</td>
+                  <td data-toggle="modal" data-target="#modelId{{$libro->id}}">{{$libro->NEdicion}}</td>
+                  <td data-toggle="modal" data-target="#modelId{{$libro->id}}">{{$libro->tema}}</td>
+                  <td data-toggle="modal" data-target="#modelId{{$libro->id}}">{{$libro->tipo}}</td>
                   <td>
                     <a href="modificarlibro/{{$libro->id}}" style="color: #0f9fd6;" title="Modificar"><i class="fas fa-edit"></i></a>
                     <form action="{{route('eliminaLibro',['id'=>$libro->id])}}" name="eliminarLibro" method="post">@csrf<button type="button" onclick="eliminar()" style="border:none; padding: 0; background: none; color:#0f9fd6;" title="Eliminar"><i class="fas fa-trash"></i></button></form>
                   </td>
                 </tr>
+
+
+                <!-- Modal -->
+                <div class="modal fade" id="modelId{{$libro->id}}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">{{ucwords($libro->titulo)}}</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                          </div>
+                      <div class="modal-body">
+                        <div class="container-fluid">
+                          <div class="row">
+                            <div class="col-4 text-center" style="border: 4px #11aeec; border-style: dashed solid; padding-top: 18%;">
+                              <i class="far fa-image display-2 align-middle"></i>
+                            </div>
+                            <div class="col-8">
+                              <span><strong style="color:#085a7a;">Autor:</strong> {{ucwords($libro->autor)}}</span><br>
+                              <span><strong style="color:#085a7a;">Autor2:</strong> {{ucwords($libro->autor2)}}</span><br>
+                              <span><strong style="color:#085a7a;">Editorial:</strong> {{ucwords($libro->editorial)}}</span><br>
+                              <span><strong style="color:#085a7a;">N° Edicion:</strong> {{$libro->NEdicion}}</span><br>
+                              <span><strong style="color:#085a7a;">Tema:</strong> {{$libro->tema}}</span><br>
+                              <span><strong style="color:#085a7a;">Tipo:</strong> {{$libro->tipo}}</span><br>
+                              <span><strong style="color:#085a7a;">Notas:</strong> {{$libro->notas}}</span>
+                            </div>
+                          </div>
+                          
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 @endforeach
                 
                 
@@ -73,4 +107,5 @@
       </div>
     </div>
 </div>
+
 @endsection

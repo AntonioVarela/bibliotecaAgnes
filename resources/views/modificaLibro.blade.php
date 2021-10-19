@@ -123,8 +123,8 @@
     </div>
     <div class="row justify-content-center">
         <div class="col-3">
-            <button type="submit" class="btn btn-success">Guardar</button>
-            <a href="{{ route('home') }}" class="btn btn-danger">Cancelar</a>
+            <button type="submit" class="button-search">Guardar</button>
+            <a href="{{ route('home') }}" class="button-search-cancelar">Cancelar</a>
         </div>
     </div>
 </form>

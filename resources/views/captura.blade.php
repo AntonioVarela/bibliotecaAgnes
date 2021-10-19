@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container" style="background-color: #00000085; padding:3% 7%;">
+<div class="container bg-pan-left" style="background-color: #00000085; padding:3% 7%; box-shadow: black 5px 7px 12px;">
     <form action="guarda" method="post">
         @csrf
     <div class="row justify-content-center text-center text-white">
@@ -123,8 +123,8 @@
     </div>
     <div class="row justify-content-center">
         <div class="col-3">
-            <button type="submit" class="btn btn-success">Guardar</button>
-            <a href="{{route('home')}}" class="btn btn-danger">Cancelar</a>
+            <button type="submit" class="button-search">Guardar</button>
+            <a href="{{route('home')}}" class="button-search-cancelar">Cancelar</a>
         </div>
     </div>
 </form>
