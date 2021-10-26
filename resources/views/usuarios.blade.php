@@ -1,13 +1,32 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container p-4" style="background-color: #00000085; color: white;">
+<div class="container p-4">
     <div class="row text-center" >
     <h2 >Usuarios</h2>
+    <div class="row justify-content-center pr-3 pb-3">
+      <div class="p-2">
+        <form action="{{route('buscarPrestamo')}}" method="POST">
+          @csrf
+          <input type="search" class="input-search col-md-8 col-sm-8" name="buscar" id="buscar" autocomplete="off" placeholder="Buscar por titulo, autor, editorial o tema" value="{{$buscar != ''?$buscar:''}}">
+          @if ($usuarios->count() == 0)
+            <button type="submit" class="button-search" disabled><i class="fas fa-search"></i> Buscar</button>
+            @if ($buscar != '' || $usuarios->count() == 0)
+            <a class=" button-search-cancelar" href="{{route('prestamos')}}"><i class="fas fa-times"></i> Cancelar</a>
+            @endif
+            @else
+            <button type="submit" class="button-search"><i class="fas fa-search"></i> Buscar</button>
+            @if ($buscar != '')
+            <a class="button-search-cancelar" href="{{route('prestamos')}}"><i class="fas fa-times"></i> Cancelar</a>
+            @endif
+          @endif
+        </form>
+      </div>
+    </div>
     </div>
     <div class="row table-responsive" >
-        <table class="table table-dark table-striped">
-            <thead>
+        <table class="table table-striped">
+            <thead class="table-dark">
                 <tr>
                   <th scope="col">Clave</th>
                   <th scope="col">Nombre</th>

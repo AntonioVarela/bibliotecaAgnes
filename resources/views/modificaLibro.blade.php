@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container" style="background-color: #00000085; padding:3% 7%;">
-    <form action="{{route('modificaLibro', ['id' => $libro->id])}}" method="post">
+<div class="container" style="background-color: #00000085; padding:3% 7%; box-shadow: black 5px 7px 12px;">
+    <form action="{{route('modificaLibro', ['id' => $libro->id])}}" enctype="multipart/form-data" method="post">
         @csrf
     <div class="row justify-content-center text-center text-white">
         <h2>Modificar Libro</h2>
@@ -48,20 +48,34 @@
             </div>
         </div>
         <div class="col-2">
-            <label for="">foto</label>
+                <div class="form-group">
+                  <label for="subir" ><i class="fas fa-camera subirImagen" id="subirIcono"></i></label>
+                  <input type="file" name="subir" id="subir" onchange="cambioColor()" hidden accept="image/png, image/gif, image/jpeg">
+            </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-6">
+        <div class="col-4">
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon3">Codigo de Barras</span>
                 <input type="text" class="form-control" id="codigobarras" name="codigobarras" value="{{$libro->codigobarras =! '' ? $libro->codigobarras : ""}}" aria-describedby="basic-addon3">
             </div>
         </div>
-        <div class="col-6">
+        <div class="col-4">
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon3">ISBN</span>
                 <input type="text" class="form-control" id="isbn" name="isbn" value="{{$libro->isbn =! '' ? $libro->isbn : ""}}" aria-describedby="basic-addon3">
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="input-group  mb-3">
+                <span class="input-group-text" id="basic-addon3">Categoria</span>
+                <select class="form-select" id="idioma" name="categoria" aria-describedby="basic-addon3">
+                    <option value="Bronce" {{$libro->categoria == "Bronce"?'selected': ''}}>Bronce</option>
+                    <option value="Plata"  {{$libro->categoria == "Plata"?'selected': ''}}>Plata</option>
+                    <option value="Oro"  {{$libro->categoria == "Oro"?'selected': ''}}>Oro</option>
+                    <option value="Platino"  {{$libro->categoria == "Platino"?'selected': ''}}>Platino</option>
+                </select>
             </div>
         </div>
     </div>

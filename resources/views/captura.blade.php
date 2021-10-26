@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container bg-pan-left" style="background-color: #00000085; padding:3% 7%; box-shadow: black 5px 7px 12px;">
-    <form action="guarda" method="post">
+    <form action="guarda" method="post" enctype="multipart/form-data">
         @csrf
     <div class="row justify-content-center text-center text-white">
         <h2>Agregar Libro</h2>
@@ -48,20 +48,34 @@
             </div>
         </div>
         <div class="col-2">
-            <label for="">foto</label>
+            <div class="form-group">
+              <label for="subir" ><i class="fas fa-camera subirImagen" id="subirIcono"></i></label>
+              <input type="file" name="subir" id="subir" onchange="cambioColor()" hidden accept="image/png, image/gif, image/jpeg">
+            </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-6">
+        <div class="col-4">
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon3">Codigo de Barras</span>
                 <input type="text" class="form-control" id="codigobarras" name="codigobarras" aria-describedby="basic-addon3">
             </div>
         </div>
-        <div class="col-6">
-            <div class="input-group mb-3">
+        <div class="col-4">
+            <div class="input-group  mb-3">
                 <span class="input-group-text" id="basic-addon3">ISBN</span>
-                <input type="text" class="form-control" id="isbn" name="isbn" aria-describedby="basic-addon3">
+                <input type="number" class="form-control" id="isbn" name="isbn" aria-describedby="basic-addon3">
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="input-group  mb-3">
+                <span class="input-group-text" id="basic-addon3">Categoria</span>
+                <select class="form-select" id="idioma" name="categoria" aria-describedby="basic-addon3">
+                    <option value="Bronce">Bronce</option>
+                    <option value="Plata">Plata</option>
+                    <option value="Oro">Oro</option>
+                    <option value="Platino">Platino</option>
+                </select>
             </div>
         </div>
     </div>
@@ -108,7 +122,7 @@
         <div class="col-3">
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon3">Año</span>
-                <input type="text" class="form-control" id="anio" name="anio" aria-describedby="basic-addon3">
+                <input type="number" class="form-control" id="anio" name="anio" aria-describedby="basic-addon3">
             </div>
         </div>
     </div>

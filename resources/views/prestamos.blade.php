@@ -9,7 +9,7 @@
       <div class="p-2">
         <form action="{{route('buscarPrestamo')}}" method="POST">
           @csrf
-          <input type="search" class="input-search col-md-8 col-sm-8" name="buscar" id="buscar" autocomplete="off" placeholder="Buscar por titulo, autor, editorial o tema" value="{{$buscar != ''?$buscar:''}}">
+          <input type="search" class="input-search col-md-8 col-sm-8" name="buscar" id="buscar" autocomplete="off" placeholder="Buscar por Titulo de libro o Clave de usuario" value="{{$buscar != ''?$buscar:''}}">
           @if ($libros->count() == 0)
             <button type="submit" class="button-search" disabled><i class="fas fa-search"></i> Buscar</button>
             @if ($buscar != '' || $libros->count() == 0)
@@ -96,7 +96,51 @@
     
 </div>
 
-  
+<!-- Modal prestamos -->
+  <div class="modal fade" id="modalPrestamos" tabindex="-1" aria-labelledby="modalPrestamosLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalPrestamosLabel">Hacer Prestamo</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="{{route('prestamoPOST')}}" method="post">
+            @csrf
+            <div class="modal-body">
+              <button type="button" class="btn btn-usuario" title="Agregar Usuario" data-bs-toggle="modal" data-bs-target="#exampleModal" style="position: relative;left:90%;">
+                <i class="fas fa-user-plus"></i>
+              </button>
+          
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Libro</label>
+                    <select name="idLibro" id="idLibro" class="form-select">
+                        @foreach ($libros as $libro)
+                            <option value="{{$libro->id}}">{{$libro->titulo}}</option>
+                        @endforeach
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label for="apellidoP" class="form-label">Usuario</label>
+                    <select name="idUsuario" id="idUsuario" class="form-select">
+                        @foreach ($usuarios as $usuario)
+                            <option value="{{$usuario->id}}">{{$usuario->nombre}} {{$usuario->apellidoP}} {{$usuario->apellidoM}}</option>
+                        @endforeach
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label for="fechaPrestamo" class="form-label">Fecha Prestamo</label>
+                    <input type="date" class="form-control" id="fechaPrestamo" name="fechaPrestamo" aria-describedby="emailHelp">
+                  </div>        
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <!-- Modal usuarios -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -122,10 +166,6 @@
                     <input type="text" class="form-control" id="apellidoM" name="apellidoM" aria-describedby="emailHelp">
                   </div>
                   <div class="mb-3">
-                    <label for="clave" class="form-label">Clave</label>
-                    <input type="text" class="form-control" id="clave" name="clave">
-                  </div>
-                  <div class="mb-3">
                     <label for="tipo" class="form-label">Tipo</label>
                     <select name="tipo" id="tipo" class="form-select">
                         <option value="Alumno">Alumno</option>
@@ -133,51 +173,6 @@
                     </select>
                   </div>
         
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-primary">Guardar</button>
-            </div>
-        </form>
-      </div>
-    </div>
-  </div>
-<!-- Modal prestamos -->
-  <div class="modal fade" id="modalPrestamos" tabindex="-1" aria-labelledby="modalPrestamosLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modalPrestamosLabel">Hacer Prestamo</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <form action="{{route('prestamoPOST')}}" method="post">
-            @csrf
-            <div class="modal-body">
-          
-                <div class="mb-3">
-                    <label for="nombre" class="form-label">Libro</label>
-                    <select name="idLibro" id="idLibro" class="form-select">
-                        @foreach ($libros as $libro)
-                            <option value="{{$libro->id}}">{{$libro->titulo}}</option>
-                        @endforeach
-                    </select>
-                  </div>
-                  <div class="mb-3">
-                    <label for="apellidoP" class="form-label">Usuario</label>
-                    <select name="idUsuario" id="idUsuario" class="form-select">
-                        @foreach ($usuarios as $usuario)
-                            <option value="{{$usuario->id}}">{{$usuario->nombre}} {{$usuario->apellidoP}} {{$usuario->apellidoM}}</option>
-                        @endforeach
-                    </select>
-                  </div>
-                  <div class="mb-3">
-                    <label for="fechaPrestamo" class="form-label">Fecha Prestamo</label>
-                    <input type="date" class="form-control" id="fechaPrestamo" name="fechaPrestamo" aria-describedby="emailHelp">
-                  </div>
-                  <div class="mb-3">
-                    <label for="fechaEntrega" class="form-label">Fecha Entrega</label>
-                    <input type="date" class="form-control" id="fechaEntrega" name="fechaEntrega">
-                  </div>        
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

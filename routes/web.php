@@ -23,6 +23,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/captura', 'adminitradorController@captura')->middleware('auth')->name('captura');
 Route::get('/prestamos', 'adminitradorController@prestamos')->middleware('auth')->name('prestamos');
 Route::get('/usuarios', 'adminitradorController@usuarios')->middleware('auth')->name('usuarios');
+Route::get('/informes', 'adminitradorController@informes')->middleware('auth')->name('informes');
 Route::POST('/usuariosPOST', 'adminitradorController@usuariosPOST')->middleware('auth')->name('usuarioPOST');
 Route::POST('/prestamoPOST', 'adminitradorController@prestamoPOST')->middleware('auth')->name('prestamoPOST');
 Route::POST('/guarda', 'adminitradorController@capturaPOST')->middleware('auth')->name('guarda');

@@ -16,13 +16,15 @@ class LibroTable extends Migration
         Schema::create('libro', function (Blueprint $table) {
             $table->id();
             $table->string('titulo');
-            $table->string('identificador');
+            $table->integer('identificador');
             $table->string('autor');
             $table->string('autor2')->nullable();
             $table->string('editorial')->nullable();
             $table->string('NEdicion')->nullable();
             $table->string('notas')->nullable();
             $table->string('isbn')->nullable();
+            $table->string('imagen')->nullable();
+            $table->string('categoria')->nullable()->default("Bronce");
             $table->string('codigobarras')->nullable();
             $table->string('idioma')->nullable();
             $table->string('anio')->nullable();

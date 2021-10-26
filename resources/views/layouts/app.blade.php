@@ -135,6 +135,17 @@ font-family: inherit;
     background-color: #085a7a !important;
     text-decoration: none;
 }
+.subirImagen {
+    font-size: 35px;
+    margin-left: 100%;
+    color: #11aeec;
+    cursor: pointer;
+}
+.subirImagen:hover {
+    color: #085a7a;
+    box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.3);
+    transform: translateY(-5px);
+}
 
 
     </style>
@@ -179,7 +190,7 @@ font-family: inherit;
                                 <a class="nav-link menu-a" href="{{route('usuarios')}}">Usuarios</a>
                             </li>
                             <li>
-                                <a class="nav-link menu-a" href="home">Informes</a>
+                                <a class="nav-link menu-a" href="{{route('informes')}}">Informes</a>
                             </li>
                             
                             <li class="nav-item dropdown">
@@ -210,7 +221,7 @@ font-family: inherit;
         </main>
     </div>
     <script>
-        function eliminar(){
+        function eliminar($id){
           Swal.fire({
         title: 'Esta seguro que desea eliminar?',
         text: "Los cambios son irreversibles",
@@ -221,9 +232,16 @@ font-family: inherit;
         confirmButtonText: 'Eliminar'
       }).then((result) => {
         if (result.isConfirmed) {
-          document.eliminarLibro.submit()
+          document.getElementById("eliminarLibro"+$id).submit();
         }
       })
+        }
+
+        function cambioColor(){
+            if( document.getElementById("subir").files.length != 0 ){
+                var fileName = document.getElementById("subir").files[0].name;
+                document.getElementById('subirIcono').style.color = '#00ce23';
+            }
         }
         </script>
 </body>

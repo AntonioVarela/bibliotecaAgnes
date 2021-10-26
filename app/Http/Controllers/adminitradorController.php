@@ -17,6 +17,7 @@ class adminitradorController extends Controller
     }
     public function capturaPOST(Request $request)
     {
+        $file = $request->file('subir');
         $nuevoLibro = new libro();
         $nuevoLibro->titulo = $request['titulo'];
         $nuevoLibro->identificador = $request['identificador'];
@@ -28,15 +29,28 @@ class adminitradorController extends Controller
         $nuevoLibro->isbn = $request['isbn'];
         $nuevoLibro->codigobarras = $request['codigobarras'];
         $nuevoLibro->tema = $request['tema'];
+        $nuevoLibro->categoria = $request['categoria'];
         $nuevoLibro->idioma = $request['idioma'];
         $nuevoLibro->tipo = $request['tipo'];
         $nuevoLibro->anio = $request['anio'];
+        $nuevoLibro->imagen = time()."_".$file->getClientOriginalName();
         $nuevoLibro->save();
+
+        //obtenemos el nombre del archivo
+        $nombre =  time()."_".$file->getClientOriginalName();
+        //indicamos que queremos guardar un nuevo archivo en el disco local
+        \Storage::disk('public')->put($nombre,  \File::get($file));
         return redirect("home");
     }
     
     public function modificaGET($id) {
         $libro = libro::find($id);
+        return view('modificaLibro')->with('libro',$libro);
+    }
+
+    public function informesGET($id) {
+        $libro = libro::all();
+        $prestamos = prestamo::all();
         return view('modificaLibro')->with('libro',$libro);
     }
     public function modificaLibroPOST(Request $request, $id){
@@ -87,8 +101,12 @@ class adminitradorController extends Controller
         $usuario->nombre = $request['nombre'];
         $usuario->apellidoP = $request['apellidoP'];
         $usuario->apellidoM = $request['apellidoM'];
-        $usuario->clave = $request['clave'];
         $usuario->tipo= $request['tipo'];
+        if($request['tipo']=="Alumno")
+        $rest = '01'.substr($request['nombre'], 0, 2).substr($request['apellidoP'], 0, 2).substr($request['apellidoM'], 0, 2).$usuario->id;
+        else
+        $rest = '00'.substr($request['nombre'], 0, 2).substr($request['apellidoP'], 0, 2).substr($request['apellidoM'], 0, 2).$usuario->id;
+        $usuario->clave = $rest;
         $usuario->save();
         Alert::success('Se ha añadido exitosamente');
         return redirect("prestamos");
@@ -98,7 +116,7 @@ class adminitradorController extends Controller
         $prestamo->idLibro = $request['idLibro'];
         $prestamo->idUsuario = $request['idUsuario'];
         $prestamo->prestamo = $request['fechaPrestamo'];
-        $prestamo->entrega = $request['fechaEntrega'];
+        $prestamo->entrega = date("Y-m-d",strtotime($prestamo->prestamo."+ 5 days"));
         $prestamo->save();
         Alert::success('Se ha añadido exitosamente');
         return redirect("prestamos");
@@ -107,6 +125,6 @@ class adminitradorController extends Controller
     public function usuarios()
     {
         $usuarios = usuarios::paginate(50);
-        return view('usuarios')->with('usuarios',$usuarios);
+        return view('usuarios')->with('usuarios',$usuarios)->with('buscar','');
     }
 }

@@ -49,16 +49,16 @@
               <tbody>
                 @foreach($libros as $libro)
                 <tr>
-                  <th  data-toggle="modal" data-target="#modelId{{$libro->id}}" scope="row">{{$libro->id}}</th>
+                  <th  data-toggle="modal" data-target="#modelId{{$libro->id}}" scope="row">{{$libro->identificador}}</th>
                   <td data-toggle="modal" data-target="#modelId{{$libro->id}}">{{ucwords($libro->titulo)}}</td>
                   <td data-toggle="modal" data-target="#modelId{{$libro->id}}">{{ucwords($libro->autor)}}</td>
                   <td data-toggle="modal" data-target="#modelId{{$libro->id}}">{{ucwords($libro->editorial)}}</td>
-                  <td data-toggle="modal" data-target="#modelId{{$libro->id}}">{{$libro->NEdicion}}</td>
+                  <td data-toggle="modal" data-target="#modelId{{$libro->id}}">{{ucwords($libro->NEdicion)}}</td>
                   <td data-toggle="modal" data-target="#modelId{{$libro->id}}">{{$libro->tema}}</td>
                   <td data-toggle="modal" data-target="#modelId{{$libro->id}}">{{$libro->tipo}}</td>
                   <td>
                     <a href="modificarlibro/{{$libro->id}}" style="color: #0f9fd6;" title="Modificar"><i class="fas fa-edit"></i></a>
-                    <form action="{{route('eliminaLibro',['id'=>$libro->id])}}" name="eliminarLibro" method="post">@csrf<button type="button" onclick="eliminar()" style="border:none; padding: 0; background: none; color:#0f9fd6;" title="Eliminar"><i class="fas fa-trash"></i></button></form>
+                    <form action="{{route('eliminaLibro',['id'=>$libro->id])}}" name="eliminarLibro" id="eliminarLibro{{$libro->id}}" method="post">@csrf<button type="button" onclick="eliminar({{$libro->id}})" style="border:none; padding: 0; background: none; color:#0f9fd6;" title="Eliminar"><i class="fas fa-trash"></i></button></form>
                   </td>
                 </tr>
 
@@ -67,7 +67,20 @@
                 <div class="modal fade" id="modelId{{$libro->id}}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <div class="modal-header">
+                      @if ($libro->categoria == "Bronce")
+                      <div class="modal-header" style="background: linear-gradient(90deg, rgba(226,139,52,1) 0%, rgba(255,255,255,1) 100%);">
+                      @else
+                          @if ($libro->categoria == "Plata")
+                          <div class="modal-header" style="background: linear-gradient(90deg, rgba(138,149,151,1) 0%, rgba(255,255,255,1) 100%);">
+                          @else
+                              @if ($libro->categoria == "Oro")
+                              <div class="modal-header" style="background: linear-gradient(90deg, rgba(255,191,0,1) 0%, rgba(255,255,255,1) 100%);">
+                              @else
+                              <div class="modal-header" style="background: linear-gradient(90deg, rgba(4,189,205,1) 0%, rgba(255,255,255,1) 100%);">
+                              @endif
+                          @endif
+                      @endif
+                        
                             <h5 class="modal-title">{{ucwords($libro->titulo)}}</h5>
                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
@@ -76,8 +89,14 @@
                       <div class="modal-body">
                         <div class="container-fluid">
                           <div class="row">
-                            <div class="col-4 text-center" style="border: 4px #11aeec; border-style: dashed solid; padding-top: 18%;">
+                            <div class="col-4" style="border: 4px #11aeec; border-style: dashed solid; padding-top: auto; display: block; margin: auto;">
+                              
+                              @if ($libro->imagen != '')
+                              <img src="/storage/{{$libro->imagen}}" class="img-thumbnail">
+                              @else
                               <i class="far fa-image display-2 align-middle"></i>
+                              @endif
+                                  
                             </div>
                             <div class="col-8">
                               <span><strong style="color:#085a7a;">Autor:</strong> {{ucwords($libro->autor)}}</span><br>
@@ -86,6 +105,7 @@
                               <span><strong style="color:#085a7a;">N° Edicion:</strong> {{$libro->NEdicion}}</span><br>
                               <span><strong style="color:#085a7a;">Tema:</strong> {{$libro->tema}}</span><br>
                               <span><strong style="color:#085a7a;">Tipo:</strong> {{$libro->tipo}}</span><br>
+                              <span>Busca tu libro en internet <strong style="color:#085a7a;"><a href="https://www.google.com/search?q={{$libro->isbn}}" target="_blank">AQUI</a></strong></span><br>
                               <span><strong style="color:#085a7a;">Notas:</strong> {{$libro->notas}}</span>
                             </div>
                           </div>
@@ -102,7 +122,7 @@
         </table>
     </div>
     <div class="row justify-content-center">
-      <div class="col-1">
+      <div class="col-12">
         {{ $libros->links() }}
       </div>
     </div>
