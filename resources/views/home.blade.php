@@ -81,7 +81,7 @@
                           @endif
                       @endif
                         
-                            <h5 class="modal-title">{{ucwords($libro->titulo)}}</h5>
+                            <h5 class="modal-title">{{ucwords($libro->titulo)}} (Posicion: {{$libro->identificador}})</h5>
                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                               </button>
@@ -89,25 +89,23 @@
                       <div class="modal-body">
                         <div class="container-fluid">
                           <div class="row">
-                            <div class="col-4" style="border: 4px #11aeec; border-style: dashed solid; padding-top: auto; display: block; margin: auto;">
-                              
-                              @if ($libro->imagen != '')
-                              <img src="/storage/{{$libro->imagen}}" class="img-thumbnail">
-                              @else
-                              <i class="far fa-image display-2 align-middle"></i>
-                              @endif
-                                  
-                            </div>
-                            <div class="col-8">
+                            <div class="col-6">
                               <span><strong style="color:#085a7a;">Autor:</strong> {{ucwords($libro->autor)}}</span><br>
-                              <span><strong style="color:#085a7a;">Autor2:</strong> {{ucwords($libro->autor2)}}</span><br>
                               <span><strong style="color:#085a7a;">Editorial:</strong> {{ucwords($libro->editorial)}}</span><br>
                               <span><strong style="color:#085a7a;">N° Edicion:</strong> {{$libro->NEdicion}}</span><br>
+                              <span><strong style="color:#085a7a;">ISBN:</strong> {{$libro->isbn}}</span><br>
+                              <span><strong style="color:#085a7a;">Barcode:</strong> {{$libro->codigobarras}}</span><br>
+                              <span>Busca tu libro en internet <strong style="color:#085a7a;"><a href="https://www.google.com/search?q={{$libro->isbn}}" target="_blank">AQUI</a></strong></span><br>
+                            </div>
+                            <div class="col-6">
+                              <span><strong style="color:#085a7a;">Autor2:</strong> {{ucwords($libro->autor2)}}</span><br>
                               <span><strong style="color:#085a7a;">Tema:</strong> {{$libro->tema}}</span><br>
                               <span><strong style="color:#085a7a;">Tipo:</strong> {{$libro->tipo}}</span><br>
-                              <span>Busca tu libro en internet <strong style="color:#085a7a;"><a href="https://www.google.com/search?q={{$libro->isbn}}" target="_blank">AQUI</a></strong></span><br>
-                              <span><strong style="color:#085a7a;">Notas:</strong> {{$libro->notas}}</span>
+                              <span><strong style="color:#085a7a;">Idioma:</strong> {{$libro->idioma}}</span><br>
+                              <span><strong style="color:#085a7a;">Tipo:</strong> {{$libro->tipo}}</span><br>
+                              <span><strong style="color:#085a7a;">Año:</strong> {{$libro->anio}}</span><br>
                             </div>
+                            <span><strong style="color:#085a7a;">Notas:</strong> {{$libro->notas}}</span>
                           </div>
                           
                         </div>

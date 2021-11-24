@@ -19,6 +19,7 @@ class CreatePrestamoTable extends Migration
             $table->bigInteger('idLibro');
             $table->date('prestamo');
             $table->date('entrega');
+            $table->string("estatus");
             $table->softDeletes();
             $table->timestamps();
         });

@@ -23,7 +23,7 @@ class LibroTable extends Migration
             $table->string('NEdicion')->nullable();
             $table->string('notas')->nullable();
             $table->string('isbn')->nullable();
-            $table->string('imagen')->nullable();
+            $table->string('imagen')->nullable()->default("null");
             $table->string('categoria')->nullable()->default("Bronce");
             $table->string('codigobarras')->nullable();
             $table->string('idioma')->nullable();

@@ -41,16 +41,10 @@
                 <input type="text" class="form-control" id="editorial" name="editorial" aria-describedby="basic-addon3">
             </div>
         </div>
-        <div class="col-4">
+        <div class="col-6">
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon3">N° Edicion</span>
                 <input type="text" class="form-control" id="NEdicion" name="NEdicion" aria-describedby="basic-addon3">
-            </div>
-        </div>
-        <div class="col-2">
-            <div class="form-group">
-              <label for="subir" ><i class="fas fa-camera subirImagen" id="subirIcono"></i></label>
-              <input type="file" name="subir" id="subir" onchange="cambioColor()" hidden accept="image/png, image/gif, image/jpeg">
             </div>
         </div>
     </div>
@@ -64,7 +58,7 @@
         <div class="col-4">
             <div class="input-group  mb-3">
                 <span class="input-group-text" id="basic-addon3">ISBN</span>
-                <input type="number" class="form-control" id="isbn" name="isbn" aria-describedby="basic-addon3">
+                <input type="text" class="form-control" id="isbn" name="isbn" aria-describedby="basic-addon3">
             </div>
         </div>
         <div class="col-4">
@@ -137,8 +131,8 @@
     </div>
     <div class="row justify-content-center">
         <div class="col-3">
-            <button type="submit" class="button-search">Guardar</button>
             <a href="{{route('home')}}" class="button-search-cancelar">Cancelar</a>
+            <button type="submit" class="button-search">Guardar</button>
         </div>
     </div>
 </form>

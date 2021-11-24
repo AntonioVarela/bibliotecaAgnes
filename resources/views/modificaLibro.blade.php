@@ -41,16 +41,10 @@
                 <input type="text" class="form-control" id="editorial" name="editorial" value="{{$libro->editorial =! '' ? $libro->editorial : ""}}" aria-describedby="basic-addon3">
             </div>
         </div>
-        <div class="col-4">
+        <div class="col-6">
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon3">N° Edicion</span>
                 <input type="text" class="form-control" id="NEdicion" name="NEdicion" value="{{$libro->NEdicion =! '' ? $libro->NEdicion : ""}}" aria-describedby="basic-addon3">
-            </div>
-        </div>
-        <div class="col-2">
-                <div class="form-group">
-                  <label for="subir" ><i class="fas fa-camera subirImagen" id="subirIcono"></i></label>
-                  <input type="file" name="subir" id="subir" onchange="cambioColor()" hidden accept="image/png, image/gif, image/jpeg">
             </div>
         </div>
     </div>
