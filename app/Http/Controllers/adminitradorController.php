@@ -10,6 +10,7 @@ use App\usuarios;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Collection;
 
 class adminitradorController extends Controller
 {
@@ -17,8 +18,37 @@ class adminitradorController extends Controller
     public function captura()
     {
         $libros = libro::all();
-        return view('captura')->with('cuenta',count($libros));
+        $librosNoRepetidos = DB::select('SELECT Distinct editorial, titulo FROM `biblioteca`.`libro`');
+        return view('captura')->with('cuenta',count($libros))->with('libros',$librosNoRepetidos);
     }
+
+    public function duplicar(Request $request){
+        $total = count(libro::all());
+        $cadena1 = explode("(",$request['titulo2']);
+        $cadena2= explode(")",$cadena1[1]);
+        $titulo =  substr($cadena1[0], 0, -1);;
+        $editorial = $cadena2[0];
+        $libro = libro::where('titulo', $titulo)->where('editorial', $editorial)->first();
+        $libro->identificador = $total;
+        $nuevoLibro = new libro();
+        $nuevoLibro->titulo = $libro->titulo;
+        $nuevoLibro->identificador = $libro->identificador;
+        $nuevoLibro->autor= $libro->autor;
+        $nuevoLibro->autor2 = $libro->autor2;
+        $nuevoLibro->editorial = $libro->editorial;
+        $nuevoLibro->NEdicion = $libro->NEdicion;
+        $nuevoLibro->notas = $libro->notas;
+        $nuevoLibro->isbn = $libro->isbn;
+        $nuevoLibro->codigobarras =$libro->codigobarras;
+        $nuevoLibro->tema = $libro->tema;
+        $nuevoLibro->categoria = $libro->categoria;
+        $nuevoLibro->idioma = $libro->idioma;
+        $nuevoLibro->tipo = $libro->tipo;
+        $nuevoLibro->anio = $libro->anio;
+        $nuevoLibro->save();
+        return redirect("home");
+    }
+
     public function capturaPOST(Request $request)
     {
         

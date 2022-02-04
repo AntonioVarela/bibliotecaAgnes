@@ -1,7 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
+<datalist id="colores">
+    @foreach ($libros as $item)
+         <option value="{{$item->titulo}} ({{$item->editorial}})"></option>
+    @endforeach
+</datalist>
 <div class="container bg-pan-left" style="background-color: #00000085; padding:3% 7%; box-shadow: black 5px 7px 12px;">
+    <form action="{{route('duplicar')}}" method="post">
+        @csrf
+        <input type="text" hidden class="form-control" id="titulo2" name="titulo2" >
+        <button>Duplicar</button>
+    </form>
     <form action="guarda" method="post" enctype="multipart/form-data">
         @csrf
     <div class="row justify-content-center text-center text-white">
@@ -9,7 +19,7 @@
         <div class="col-6">
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon3">Titulo <span class="text-danger">*</span></span>
-                <input type="text" class="form-control" id="titulo" name="titulo" aria-describedby="basic-addon3" required>
+                <input type="text" class="form-control" id="titulo" onchange="cambia(event)" name="titulo" aria-describedby="basic-addon3" list="colores" autocomplete="off" required>
             </div>  
         </div>
               <div class="col-6">

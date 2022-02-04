@@ -47,7 +47,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="navbar-nav ml-auto nav-pills">
                         <!-- Authentication Links -->
                         @guest {{--
                         <li class="nav-item">
@@ -58,16 +58,16 @@
                         </li>
                         @endif --}} @else
                         <li>
-                            <a class="nav-link menu-a" href="{{ route('home') }}">Inicio</a>
+                            <a class="nav-link menu-a {{ Request::is('home') ? 'active2' : '' }}" href="{{ route('home') }}">Inicio</a>
                         </li>
                         <li>
-                            <a class="nav-link menu-a" href="{{ route('prestamos') }}">Prestamos</a>
+                            <a class="nav-link menu-a {{ Request::is('prestamos') ? 'active2' : '' }}" href="{{ route('prestamos') }}">Prestamos</a>
                         </li>
                         <li>
-                            <a class="nav-link menu-a" href="{{route('usuarios')}}">Usuarios</a>
+                            <a class="nav-link menu-a {{ Request::is('usuarios') ? 'active2' : '' }}" href="{{route('usuarios')}}">Usuarios</a>
                         </li>
                         <li>
-                            <a class="nav-link menu-a" href="{{route('informes')}}">Informes</a>
+                            <a class="nav-link menu-a {{ Request::is('informes') ? 'active2' : '' }}" href="{{route('informes')}}">Informes</a>
                         </li>
 
                         <li class="nav-item dropdown">
@@ -139,6 +139,11 @@
     $('#idLibro').select2();
     $('#idUsuario').select2();
 });
+function cambia(event) {
+    var codigo = event.key;
+    var text = $( "#titulo" ).val();
+    $( "#titulo2" ).val(text);
+}
     </script>
 </body>
 

@@ -47,20 +47,20 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="navbar-nav ml-auto nav-pills">
                         <!-- Authentication Links -->
                         <?php if(auth()->guard()->guest()): ?>   <?php else: ?>
                         <li>
-                            <a class="nav-link menu-a" href="<?php echo e(route('home')); ?>">Inicio</a>
+                            <a class="nav-link menu-a <?php echo e(Request::is('home') ? 'active2' : ''); ?>" href="<?php echo e(route('home')); ?>">Inicio</a>
                         </li>
                         <li>
-                            <a class="nav-link menu-a" href="<?php echo e(route('prestamos')); ?>">Prestamos</a>
+                            <a class="nav-link menu-a <?php echo e(Request::is('prestamos') ? 'active2' : ''); ?>" href="<?php echo e(route('prestamos')); ?>">Prestamos</a>
                         </li>
                         <li>
-                            <a class="nav-link menu-a" href="<?php echo e(route('usuarios')); ?>">Usuarios</a>
+                            <a class="nav-link menu-a <?php echo e(Request::is('usuarios') ? 'active2' : ''); ?>" href="<?php echo e(route('usuarios')); ?>">Usuarios</a>
                         </li>
                         <li>
-                            <a class="nav-link menu-a" href="<?php echo e(route('informes')); ?>">Informes</a>
+                            <a class="nav-link menu-a <?php echo e(Request::is('informes') ? 'active2' : ''); ?>" href="<?php echo e(route('informes')); ?>">Informes</a>
                         </li>
 
                         <li class="nav-item dropdown">
@@ -134,6 +134,11 @@
     $('#idLibro').select2();
     $('#idUsuario').select2();
 });
+function cambia(event) {
+    var codigo = event.key;
+    var text = $( "#titulo" ).val();
+    $( "#titulo2" ).val(text);
+}
     </script>
 </body>
 

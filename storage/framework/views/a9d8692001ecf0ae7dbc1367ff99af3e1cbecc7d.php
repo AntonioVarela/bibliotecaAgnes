@@ -48,7 +48,7 @@
               </thead>
               <tbody>
                 <?php $__currentLoopData = $libros; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $libro): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <tr>
+                <tr class=".shadow-drop-2-br">
                   <th  data-toggle="modal" data-target="#modelId<?php echo e($libro->id); ?>" scope="row"><?php echo e($libro->identificador); ?></th>
                   <td data-toggle="modal" data-target="#modelId<?php echo e($libro->id); ?>"><?php echo e(ucwords($libro->titulo)); ?></td>
                   <td data-toggle="modal" data-target="#modelId<?php echo e($libro->id); ?>"><?php echo e(ucwords($libro->autor)); ?></td>

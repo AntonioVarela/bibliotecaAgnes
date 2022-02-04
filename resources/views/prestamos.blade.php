@@ -56,7 +56,7 @@
               </thead>
               <tbody>
                 @foreach($prestamosA as $prestamo)
-                @if($prestamo->entrega == date('Y-m-d',strtotime("-1 days")))
+                @if(date('Y-m-d',strtotime("-1 days")) >= $prestamo->entrega )
               <tr class="table-danger">
               @else
               <tr>

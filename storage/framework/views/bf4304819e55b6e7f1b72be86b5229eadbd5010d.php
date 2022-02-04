@@ -56,7 +56,7 @@
               </thead>
               <tbody>
                 <?php $__currentLoopData = $prestamosA; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $prestamo): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <?php if($prestamo->entrega == date('Y-m-d',strtotime("-1 days"))): ?>
+                <?php if(date('Y-m-d',strtotime("-1 days")) >= $prestamo->entrega ): ?>
               <tr class="table-danger">
               <?php else: ?>
               <tr>
