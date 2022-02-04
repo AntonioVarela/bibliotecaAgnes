@@ -120,8 +120,7 @@ class adminitradorController extends Controller
     public function prestamos() {
         $usuarios = usuarios::all();
         $libros = libro::all();
-        // $librosMasPrestados = DB::select('SELECT COUNT(idLibro ) AS cuenta, idLibro FROM `biblioteca`.`prestamo`GROUP BY idLibro');
-        $libros2 = libro::select('COUNT(idLibro ) AS cuenta, idLibro')->get();
+        $librosMasPrestados = DB::raw('SELECT COUNT(idLibro ) AS cuenta, idLibro FROM `biblioteca`.`prestamo`GROUP BY idLibro');
         $prestamosA = prestamo::where('estatus',"Prestado")->paginate(10);
         $prestamos = prestamo::where('estatus',"Devuelto")->paginate(10);
         return view('prestamos')->with('usuarios',$usuarios)->with('libros',$libros)->with('prestamos', $prestamos)->with('prestamosA', $prestamosA)->with('buscar','');
