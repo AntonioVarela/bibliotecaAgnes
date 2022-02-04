@@ -18,7 +18,8 @@ class adminitradorController extends Controller
     public function captura()
     {
         $libros = libro::all();
-        $librosNoRepetidos = DB::raw('SELECT Distinct editorial, titulo FROM `biblioteca`.`libro`');
+        $librosNoRepetidos = DB::table('libro')->select(DB::raw('Distinct editorial, titulo'))->get();
+dd($librosNoRepetidos);
         return view('captura')->with('cuenta',count($libros))->with('libros',$librosNoRepetidos);
     }
 
