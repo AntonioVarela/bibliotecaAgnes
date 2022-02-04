@@ -87,9 +87,9 @@ class adminitradorController extends Controller
         $usuarios = usuarios::all();
         $libros = libro::all();
         $prestamos = prestamo::all();
-        $librosMasPrestados = DB::select('SELECT COUNT(idLibro ) AS cuenta, idLibro FROM `biblioteca`.`prestamo`GROUP BY idLibro');
-        $usuariosConMasPrestamos = DB::select('SELECT COUNT(idUsuario) AS cuenta, idUsuario FROM `biblioteca`.`prestamo`GROUP BY idusuario');
-        $noDevueltos = DB::select('SELECT * FROM `biblioteca`.`prestamo` WHERE estatus = "Prestado"  AND  DATE(entrega) <= DATE(NOW())');
+        $librosMasPrestados = DB::raw('SELECT COUNT(idLibro ) AS cuenta, idLibro FROM `biblioteca`.`prestamo`GROUP BY idLibro');
+        $usuariosConMasPrestamos = DB::raw('SELECT COUNT(idUsuario) AS cuenta, idUsuario FROM `biblioteca`.`prestamo`GROUP BY idusuario');
+        $noDevueltos = DB::raw('SELECT * FROM `biblioteca`.`prestamo` WHERE estatus = "Prestado"  AND  DATE(entrega) <= DATE(NOW())');
         // dd($noDevuletos);
         return view('informes')->with('libros',$libros)->with('usuarios',$usuarios)->with('librosMasPrestados',$librosMasPrestados)->with('usuariosConMasPrestamos',$usuariosConMasPrestamos)->with('noDevueltos',$noDevueltos);
     }
