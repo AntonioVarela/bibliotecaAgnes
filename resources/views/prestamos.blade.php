@@ -80,11 +80,11 @@
         <form action="{{route('prestamoPOST')}}" id="PrestamoPOST" method="post">
             @csrf
             <div class="modal-body">
-                <div class="row mb-3">
+                <div class="mb-3">
                     <label for="nombre" class="form-label">Libro: </label>
                     <select name="idLibro" id="idLibro" class="form-select">
                         @foreach ($libros as $libro)
-                            <option value="{{$libro->id}}">{{$libro->titulo}}</option>
+                            <option value="{{$libro->id}}">{{$libro->titulo}} (<strong>Posicion:</strong>{{$libro->identificador}})</option>
                         @endforeach
                     </select>
                   </div>

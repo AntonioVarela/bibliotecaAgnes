@@ -15,6 +15,9 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="{{ asset('select2-4.0.13\dist\js\select2.min.js') }}" defer></script>
     <link href="{{ asset("select2-4.0.13\dist\css\select2.min.css")}}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.2.0/dist/select2-bootstrap-5-theme.min.css" />
+<!-- Or for RTL support -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.2.0/dist/select2-bootstrap-5-theme.rtl.min.css" />
     <!-- Fonts -->
 
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -138,8 +141,12 @@
             }
         }
         $(document).ready(function() {
-    $('#idLibro').select2();
-    $('#idUsuario').select2();
+    $('#idLibro').select2({
+    theme: "bootstrap-5",
+});
+    $('#idUsuario').select2({
+    theme: "bootstrap-5",
+});
 });
 function cambia(event) {
     var codigo = event.key;
