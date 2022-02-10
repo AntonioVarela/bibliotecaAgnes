@@ -35,10 +35,11 @@
 
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="{{asset('img/logo.png')}}" alt="" width="200">
+                    <img src="{{asset('img/Agnes-logo.png')}}" alt="" width="30">
+                    COLEGIO AGNES GONXHA
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -58,21 +59,22 @@
                         </li>
                         @endif --}} @else
                         <li>
-                            <a class="nav-link menu-a {{ Request::is('home') ? 'active2' : '' }}" href="{{ route('home') }}">Inicio</a>
+                            <a class="nav-link menu-a {{ Request::is('home') ? 'active2' : '' }}" href="{{ route('home') }}">Inventario</a>
                         </li>
                         <li>
                             <a class="nav-link menu-a {{ Request::is('prestamos') ? 'active2' : '' }}" href="{{ route('prestamos') }}">Prestamos</a>
                         </li>
+                        @if ( Auth::user()->tipo == "administrador")
                         <li>
-                            <a class="nav-link menu-a {{ Request::is('usuarios') ? 'active2' : '' }}" href="{{route('usuarios')}}">Usuarios</a>
+                            <a class="nav-link menu-a {{ Request::is('altadeusuarios') ? 'active2' : '' }}" href="{{route('altadeusuarios')}}">Usuarios</a>
                         </li>
                         <li>
                             <a class="nav-link menu-a {{ Request::is('informes') ? 'active2' : '' }}" href="{{route('informes')}}">Informes</a>
                         </li>
-
+                        @endif
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle menu-a" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                                    {{ Auth::user()->name}}
                                 </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">

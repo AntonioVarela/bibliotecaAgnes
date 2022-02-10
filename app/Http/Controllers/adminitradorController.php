@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\libro;
 use App\logs;
 use App\prestamo;
-use App\usuarios;
+use App\alumno;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -51,7 +51,6 @@ class adminitradorController extends Controller
 
     public function capturaPOST(Request $request)
     {
-        
         $nuevoLibro = new libro();
         $nuevoLibro->titulo = $request['titulo'];
         $nuevoLibro->identificador = $request['identificador'];
@@ -84,15 +83,15 @@ class adminitradorController extends Controller
     }
 
     public function informesGET() {
-        $usuarios = usuarios::all();
-        $libros = libro::all();
-        $prestamos = prestamo::all();
-        $librosMasPrestados = DB::table('prestamo')->select(DB::raw('COUNT(idLibro) AS cuenta, idLibro'))->groupBy('idLibro')->get();
-        $usuariosConMasPrestamos = DB::table('prestamo')->select(DB::raw('COUNT(idUsuario) AS cuenta, idUsuario'))->groupBy('idUsuario')->get();
-        // $noDevueltos = DB::table('libro')->select(DB::raw('SELECT * FROM `biblioteca`.`prestamo` WHERE estatus = "Prestado"  AND  DATE(entrega) <= DATE(NOW())'))->get();
-        $noDevueltos = prestamo::where( 'estatus', "Prestado" )->where('entrega','<=', DATE(NOW()))->get();
-        // dd($noDevuletos);
-        return view('informes')->with('libros',$libros)->with('usuarios',$usuarios)->with('librosMasPrestados',$librosMasPrestados)->with('usuariosConMasPrestamos',$usuariosConMasPrestamos)->with('noDevueltos',$noDevueltos);
+        // $usuarios = usuarios::all();
+        // $libros = libro::all();
+        // $prestamos = prestamo::all();
+        // $librosMasPrestados = DB::table('prestamo')->select(DB::raw('COUNT(idLibro) AS cuenta, idLibro'))->groupBy('idLibro')->get();
+        // $usuariosConMasPrestamos = DB::table('prestamo')->select(DB::raw('COUNT(idUsuario) AS cuenta, idUsuario'))->groupBy('idUsuario')->get();
+        // // $noDevueltos = DB::table('libro')->select(DB::raw('SELECT * FROM `biblioteca`.`prestamo` WHERE estatus = "Prestado"  AND  DATE(entrega) <= DATE(NOW())'))->get();
+        // $noDevueltos = prestamo::where( 'estatus', "Prestado" )->where('entrega','<=', DATE(NOW()))->get();
+        // // dd($noDevuletos);
+        // return view('informes')->with('libros',$libros)->with('usuarios',$usuarios)->with('librosMasPrestados',$librosMasPrestados)->with('usuariosConMasPrestamos',$usuariosConMasPrestamos)->with('noDevueltos',$noDevueltos);
     }
     public function modificaLibroPOST(Request $request, $id){
         $nuevoLibro = libro::find($id);
@@ -119,12 +118,19 @@ class adminitradorController extends Controller
     }
 
     public function prestamos() {
-        $usuarios = usuarios::all();
+        $prestamos = prestamo::all();
         $libros = libro::all();
-        $librosMasPrestados = DB::raw('SELECT COUNT(idLibro ) AS cuenta, idLibro FROM `biblioteca`.`prestamo`GROUP BY idLibro');
-        $prestamosA = prestamo::where('estatus',"Prestado")->paginate(10);
-        $prestamos = prestamo::where('estatus',"Devuelto")->paginate(10);
-        return view('prestamos')->with('usuarios',$usuarios)->with('libros',$libros)->with('prestamos', $prestamos)->with('prestamosA', $prestamosA)->with('buscar','');
+        $hoy = DATE('Y-m-d');
+         if(Auth::user()->grado == "all") {
+            $usuarios = alumno::all();
+         }
+         if(Auth::user()->grado == "s") {
+            $usuarios = alumno::where('grado','1°A S')->orwhere('grado','1°B S')->orwhere('grado','2°A S')
+            ->orwhere('grado','2°B S')->orwhere('grado','3°A S')->orwhere('grado','3°B S')->get();
+         }
+
+         $librosMasPrestados = DB::raw('SELECT COUNT(idLibro ) AS cuenta, idLibro FROM `biblioteca`.`prestamo`GROUP BY idLibro');
+        return view('prestamos')->with('usuarios',$usuarios)->with('libros',$libros)->with('prestamos', $prestamos)->with('buscar','');
     }
 
     public function devuelveGET($id) {
@@ -151,40 +157,40 @@ class adminitradorController extends Controller
     }
 
     public function buscarPrestamo(Request $request ) {
-        $libro = libro::where('titulo', 'like' ,'%'.$request['buscar'].'%')->get();
-        dd($libro);
-        if(count($libro) != 0) {
-            foreach($libro as $l) {
-            }
-            $prestamos = prestamo::where('idLibro',$libro->id)->paginate(10);
-        }
-        $usuario = usuarios::where('clave', 'like' ,'%'.$request['buscar'].'%')->get();
-        if(count($usuario) != 0) {
-            $prestamos = prestamo::where('idUsuario',$usuario->id)->paginate(10);
-        }
+        // $libro = libro::where('titulo', 'like' ,'%'.$request['buscar'].'%')->get();
+        // dd($libro);
+        // if(count($libro) != 0) {
+        //     foreach($libro as $l) {
+        //     }
+        //     $prestamos = prestamo::where('idLibro',$libro->id)->paginate(10);
+        // }
+        // $usuario = usuarios::where('clave', 'like' ,'%'.$request['buscar'].'%')->get();
+        // if(count($usuario) != 0) {
+        //     $prestamos = prestamo::where('idUsuario',$usuario->id)->paginate(10);
+        // }
         
-        return view('home')->with('libros',$prestamos)->with('buscar',$request['buscar']);
+        // return view('home')->with('libros',$prestamos)->with('buscar',$request['buscar']);
     }
 
     public function usuariosPOST(Request $request) {
-        $usuario = new usuarios();
-        $usuario->nombre = $request['nombre'];
-        $usuario->apellidoP = $request['apellidoP'];
-        $usuario->apellidoM = $request['apellidoM'];
-        $usuario->tipo= $request['tipo'];
-        if($request['tipo']=="Alumno")
-        $rest = '01'.substr($request['nombre'], 0, 2).substr($request['apellidoP'], 0, 2).substr($request['apellidoM'], 0, 2).$usuario->id;
-        else
-        $rest = '00'.substr($request['nombre'], 0, 2).substr($request['apellidoP'], 0, 2).substr($request['apellidoM'], 0, 2).$usuario->id;
-        $usuario->clave = $rest;
-        $usuario->save();
-        $log = new logs();
-        $log->idUsuario = Auth::user()->id;
-        $log->idCambio = $usuario->id;
-        $log->detalles = "Agrego un usuario";
-        $log->save();
-        Alert::success('Se ha añadido exitosamente');
-        return redirect("prestamos");
+        // $usuario = new usuarios();
+        // $usuario->nombre = $request['nombre'];
+        // $usuario->apellidoP = $request['apellidoP'];
+        // $usuario->apellidoM = $request['apellidoM'];
+        // $usuario->tipo= $request['tipo'];
+        // if($request['tipo']=="Alumno")
+        // $rest = '01'.substr($request['nombre'], 0, 2).substr($request['apellidoP'], 0, 2).substr($request['apellidoM'], 0, 2).$usuario->id;
+        // else
+        // $rest = '00'.substr($request['nombre'], 0, 2).substr($request['apellidoP'], 0, 2).substr($request['apellidoM'], 0, 2).$usuario->id;
+        // $usuario->clave = $rest;
+        // $usuario->save();
+        // $log = new logs();
+        // $log->idUsuario = Auth::user()->id;
+        // $log->idCambio = $usuario->id;
+        // $log->detalles = "Agrego un usuario";
+        // $log->save();
+        // Alert::success('Se ha añadido exitosamente');
+        // return redirect("prestamos");
     }
     public function prestamoPOST(Request $request) {
         $libro = libro::find($request['idLibro']);
@@ -213,7 +219,29 @@ class adminitradorController extends Controller
 
     public function usuarios()
     {
-        $usuarios = usuarios::paginate(50);
-        return view('usuarios')->with('usuarios',$usuarios)->with('buscar','');
+        // $usuarios = usuarios::paginate(50);
+        // return view('usuarios')->with('usuarios',$usuarios)->with('buscar','');
+    }
+
+    public function etiquetas()
+    {
+        $libros = DB::table('libro')->orderBy('identificador', 'desc')->get();
+        return view('etiquetas')->with('cuenta',count($libros))->with('libros',$libros);
+    }
+
+    public function altadeusuarios() {
+        return view('altadeusuarios');
+    }
+
+    public function subiralumnos( Request $request) {
+        $alumnos = explode("\r\n", $request['alumnos']);
+        foreach($alumnos as $alumno)
+        {
+            $alumnoNuevo = new alumno();
+            $alumnoNuevo->nombre = $alumno;
+            $alumnoNuevo->grado = $request['grado'];
+            $alumnoNuevo->save();
+        }
+        return redirect("altadeusuarios");
     }
 }

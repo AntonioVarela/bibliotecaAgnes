@@ -8,10 +8,9 @@
 </div>
 @endif
 
-<div class="container p-4" >
+<div class="bg-white" style=" border-radius: 25px; margin:10px 25px; padding:20px; 50px" >
   <a href="captura" class="btn-flotante"><i class="fas fa-plus"></i> Nuevo Libro</a>
   <div class="row text-center" >
-    <h2 >Libros en existencia</h2>
     <div class="row justify-content-center pr-3 pb-3">
       <div class="p-2">
         <form action="{{route('buscar')}}" method="POST">

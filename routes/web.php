@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\adminitradorController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,3 +35,6 @@ Route::get('/modificarlibro/{id}', 'adminitradorController@modificaGET')->middle
 Route::post('/buscar','adminitradorController@buscarLibro')->name('buscar');
 Route::post('/buscarPrestamo','adminitradorController@buscarPrestamo')->name('buscarPrestamo');
 Route::post('/duplicar','adminitradorController@duplicar')->name("duplicar");
+Route::get('/etiquetas','adminitradorController@etiquetas')->middleware('auth')->name('etiquetas');
+Route::get('/altadeusuarios','adminitradorController@altadeusuarios')->middleware('auth')->name('altadeusuarios');
+Route::post('/subiralumnos','adminitradorController@subiralumnos')->name("subiralumnos");
