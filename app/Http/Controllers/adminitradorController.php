@@ -10,7 +10,6 @@ use App\alumno;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\Collection;
 
 class adminitradorController extends Controller
 {
@@ -249,4 +248,10 @@ class adminitradorController extends Controller
         }
         return redirect("altadeusuarios");
     }
+
+    public function buscaqr($id) {
+        $libro = libro::find($id);
+        return view('detalles')->with('libro',$libro);
+    }
+        
 }

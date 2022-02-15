@@ -36,3 +36,5 @@ Route::post('/duplicar','adminitradorController@duplicar')->name("duplicar");
 Route::get('/etiquetas','adminitradorController@etiquetas')->middleware('auth')->name('etiquetas');
 Route::get('/altadeusuarios','adminitradorController@altadeusuarios')->middleware('auth')->name('altadeusuarios');
 Route::post('/subiralumnos','adminitradorController@subiralumnos')->name("subiralumnos");
+Route::post('/prueba','adminitradorController@leercodigoqr')->name("prueba");
+Route::get('/buscaqr/{id}','adminitradorController@buscaqr')->name('buscaqr');

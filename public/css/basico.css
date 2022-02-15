@@ -194,3 +194,294 @@ body {
         box-shadow: 12px 12px 20px -12px rgba(0, 0, 0, 0.35);
     }
 }
+
+
+/* / * Agrega atributos de largo y ancho a ul * / */
+
+.page {
+    width: 150px;
+    height: 220px;
+    margin-top: 50px;
+}
+
+.page-detalles {
+    width: 350px;
+    height: 420px;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* / * Posiciona absolutamente todos los li y agrega esquinas redondeadas y sombras * / */
+
+.page li {
+    position: absolute;
+    border-radius: 0 8px 8px 0;
+    /* / * El orden de las esquinas redondeadas es superior izquierda, superior derecha, inferior derecha, inferior izquierda * / */
+    box-shadow: 1px 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+.page-detalles li {
+    position: absolute;
+    border-radius: 0 8px 8px 0;
+    /* / * El orden de las esquinas redondeadas es superior izquierda, superior derecha, inferior derecha, inferior izquierda * / */
+    box-shadow: 1px 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+
+/* / * Agregar atributo de degradado y tamaño a la portada * / */
+
+.cover-page {
+    width: 100%;
+    height: 100%;
+    padding-left: 20px;
+    background-image: linear-gradient(to top right, #222120, #838382);
+}
+
+
+/* letra del titulo en detalles del libro */
+
+.titulo-detalles {
+    color: rgb(255, 255, 255);
+    font-family: 'Dancing Script', cursive;
+    margin-top: 20%;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 200%;
+    font-weight: 400;
+    text-transform: capitalize;
+}
+
+
+/* / * Agrega degradado y tamaño a la página de contraportada * / */
+
+.end-page {
+    background-image: linear-gradient(to top right, #222120, #838382);
+    width: 100%;
+    height: 100%;
+}
+
+
+/* / * Agregar posicionamiento de tamaño y borde de color de fondo a la página de contenido * / */
+
+.inside-page {
+    width: 96%;
+    height: 96%;
+    left: 22%;
+    top: 2%;
+    border: 1px lightgray solid;
+    background-color: #fcf9f4;
+}
+
+.inside-page-detalles {
+    width: 92%;
+    height: 96%;
+    left: 15%;
+    top: 2%;
+    border: 1px lightgray solid;
+    background-color: #fcf9f4;
+}
+
+.page {
+    perspective: 1500px;
+    transform-style: preserve-3d;
+    list-style: none;
+}
+
+.page-detalles {
+    perspective: 1500px;
+    transform-style: preserve-3d;
+    list-style: none;
+}
+
+.page li {
+    transform-origin: left;
+}
+
+.page-detalles li {
+    transform-origin: left;
+}
+
+.page li:nth-of-type(1) {
+    transform: rotateY(-28deg);
+}
+
+.page-detalles li:nth-of-type(1) {
+    transform: rotateY(-28deg);
+}
+
+.page li:nth-of-type(2) {
+    transform: rotateY(-26deg);
+}
+
+.page-detalles li:nth-of-type(2) {
+    transform: rotateY(-26deg);
+}
+
+.page li:nth-of-type(3) {
+    transform: rotateY(-24deg);
+}
+
+.page-detalles li:nth-of-type(3) {
+    transform: rotateY(-24deg);
+}
+
+.page li:nth-of-type(4) {
+    transform: rotateY(-22deg);
+}
+
+.page-detalles li:nth-of-type(4) {
+    transform: rotateY(-22deg);
+}
+
+.page li:nth-of-type(5) {
+    transform: rotateY(-20deg);
+}
+
+.page-detalles li:nth-of-type(5) {
+    transform: rotateY(-20deg);
+}
+
+.page li:nth-of-type(6) {
+    transform: rotateY(-18deg);
+}
+
+.page-detalles li:nth-of-type(6) {
+    transform: rotateY(-18deg);
+}
+
+
+/* / * Estilo de línea horizontal * / */
+
+.inside-page div {
+    width: 100%;
+    height: 12px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.inside-page-detalles div {
+    width: 100%;
+    height: 12px;
+    padding: 5% 10%;
+}
+
+
+/* / * El tiempo de rotación del mouse al salir de la página y regresar * / */
+
+.page li:nth-of-type(1) {
+    transition: 1s;
+}
+
+.page li:nth-of-type(2) {
+    transition: 0.85s;
+}
+
+.page li:nth-of-type(3) {
+    transition: 0.7s;
+}
+
+.page li:nth-of-type(4) {
+    transition: 0.55s;
+}
+
+.page li:nth-of-type(5) {
+    transition: 0.4s;
+}
+
+.page-detalles li:nth-of-type(6) {
+    transition: 0.25s;
+}
+
+
+/* page detalles */
+
+.page-detalles li:nth-of-type(1) {
+    transition: 1s;
+}
+
+.page-detalles li:nth-of-type(2) {
+    transition: 0.85s;
+}
+
+.page-detalles li:nth-of-type(3) {
+    transition: 0.7s;
+}
+
+.page-detalles li:nth-of-type(4) {
+    transition: 0.55s;
+}
+
+.page-detalles li:nth-of-type(5) {
+    transition: 0.4s;
+}
+
+.page-detalles li:nth-of-type(6) {
+    transition: 0.25s;
+}
+
+
+/* / * El ángulo de rotación y el tiempo de rotación cuando el mouse está suspendido * / */
+
+.page:hover li:nth-of-type(1) {
+    transform: rotateY(-160deg);
+    transition: 1s;
+}
+
+.page:hover li:nth-of-type(2) {
+    transform: rotateY(-150deg);
+    transition: 1.3s;
+}
+
+.page:hover li:nth-of-type(3) {
+    transform: rotateY(-140deg);
+    transition: 1.6s;
+}
+
+.page:hover li:nth-of-type(4) {
+    transform: rotateY(-130deg);
+    transition: 1.9s;
+}
+
+.page:hover li:nth-of-type(5) {
+    transform: rotateY(-25deg);
+    transition: 2.2s;
+}
+
+.page:hover li:nth-of-type(6) {
+    transform: rotateY(-20deg);
+    transition: 2.5s;
+}
+
+
+/* page detalles */
+
+.page-detalles:hover li:nth-of-type(1) {
+    transform: rotateY(-160deg);
+    transition: 1s;
+}
+
+.page-detalles:hover li:nth-of-type(2) {
+    transform: rotateY(-150deg);
+    transition: 1.3s;
+}
+
+.page-detalles:hover li:nth-of-type(3) {
+    transform: rotateY(-140deg);
+    transition: 1.6s;
+}
+
+.page-detalles:hover li:nth-of-type(4) {
+    transform: rotateY(-130deg);
+    transition: 1.9s;
+}
+
+.page-detalles:hover li:nth-of-type(5) {
+    transform: rotateY(-25deg);
+    transition: 2.2s;
+}
+
+.page-detalles:hover li:nth-of-type(6) {
+    transform: rotateY(-20deg);
+    transition: 2.5s;
+}

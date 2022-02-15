@@ -9,7 +9,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-4">
-                    {!!QrCode::size(100)->generate($libro->id) !!}
+                    {!!QrCode::size(100)->generate("http://biblioteca-agnes.herokuapp.com/buscaqr/" . $libro->id) !!}
                 </div>
                 <div class="col-8 pt-2" style="font-size: 1vw; text-transform: uppercase;"><strong>Titulo: </strong>{{$libro->titulo}}<strong> 
                     <br> Posicion: </strong>{{$libro->identificador}}</div>
