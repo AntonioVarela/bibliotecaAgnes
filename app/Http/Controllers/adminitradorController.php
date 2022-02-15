@@ -14,6 +14,11 @@ use Illuminate\Database\Eloquent\Collection;
 
 class adminitradorController extends Controller
 {
+
+    public function principal() {
+        $libros = libro::orderBy('identificador', 'ASC')->paginate(10);
+        return view('welcome')->with('libros',$libros)->with('buscar','');
+    }
     
     public function captura()
     {

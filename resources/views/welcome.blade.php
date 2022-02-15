@@ -4,13 +4,15 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Biblioteca Virtual</title>
 
         <!-- Fonts -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    
+        {{-- <link href="{{ asset('css/basico.css') }}" rel="stylesheet"> --}}
         <!-- Styles -->
         <style>
            body {
@@ -22,38 +24,192 @@
                 -moz-background-size: cover;
                 -o-background-size: cover;
                 background-size: cover;
+                /* -webkit-animation: color-change-5x 8s linear infinite alternate both;
+                animation: color-change-5x 8s linear infinite alternate both; */
                 }
+            .titulos {
+                    background-color: #03247c;
+                    border-radius: 23px 23px 0 0;
+                    font-weight: bold;
+                    color: white;
+                }
+            .recuadro {
+                    background-color: #ffffff86;
+                    box-shadow: 12px 12px 20px -12px rgba(0, 0, 0, 0.55);
+                }
+            img.zoom {
+                width: 200px;
+                -webkit-transition: all .2s ease-in-out;
+                -moz-transition: all .2s ease-in-out;
+                -o-transition: all .2s ease-in-out;
+                -ms-transition: all .2s ease-in-out;
+            }
+            
+            .transition {
+                -webkit-transform: scale(1.8); 
+                -moz-transform: scale(1.8);
+                -o-transform: scale(1.8);
+                transform: scale(1.8);
+            }
+            .input-search {
+            font-family: inherit;
+            width: 80%;
+            border: 0;
+            border-bottom: 2px solid black;
+            outline: 0;
+            font-size: 1rem;
+            color: rgb(0, 0, 0);
+            padding: 7px 0;
+            transition: border-color 0.2s;
+        }
 
-                .carta {
-                    background-color: #ffffff85;
-                    padding: 12%;
-                    margin-top: 50px;
-                }
+        .input-search::placeholder {
+            color: rgb(158, 158, 158);
+        }
+
+        .input-search:focus {
+            padding-bottom: 6px;
+            border-width: 3px;
+            border-image: linear-gradient(to right, #085a7a, #11aeec);
+            border-image-slice: 1;
+        }
+
+        .button-search {
+            background-color: #11aeec;
+            color: white !important;
+            font-weight: bold;
+            padding: 7px 9px;
+            border: none;
+        }
+
+        .button-search:hover {
+            background-color: #085a7a!important;
+        }
+
+        .button-search-cancelar {
+            background-color: #3f109e;
+            color: white !important;
+            font-weight: bold;
+            padding: 10px 9px;
+            border: none;
+        }
+
+        .button-search-cancelar:hover {
+            background-color: #4447e9 !important;
+            text-decoration: none;
+        }
+
+        #global {
+        height: 355px;
+        border: 1px solid #ddd;
+        background: #f1f1f1;
+        overflow-y: scroll;
+    }
         </style>
+        <script>
+            $(document).ready(function(){
+                $('.zoom').hover(function() {
+                    $(this).addClass('transition');
+                }, function() {
+                    $(this).removeClass('transition');
+                });
+            });
+            </script>
     </head>
     <body>        
         <div class="container">
-            <div class="row">
-                <div class="col-8-md text-center carta">
-                    <img src="img\logo.png" alt="" width="500" >
-                    <p class="h1 text-dark">
-                        Sistema Virtual de Biblioteca 
-                    </p>
-                    @if (Route::has('login'))
-                    <div class="text-right links">
-                        @auth
-                            <a href="{{ url('/home') }}" class="btn btn-warning">Home</a>
-                        @else
-                            <a href="{{ route('login') }}" class="btn btn-primary">Iniciar Sesion</a>
-      
-                            {{-- @if (Route::has('register'))
-                                <a href="{{ route('register') }}">Register</a>
-                            @endif --}}
-                        @endauth
-                    </div>
-                @endif
+            <div class="row p-4 text-center titulos">
+                <div class="col-12 p-2">
+                    <img src="img\Agnes-logo.png" width="80">
+                    <span class="text-black">COLEGIO AGNES GONXHA</span>
+                </div>
+                <div class="row" style="margin-top: auto; margin-bottom:auto;">
+                    <form action="{{route('buscar')}}" method="POST">
+                        @csrf
+                        <input type="search" class="input-search col-md-5 col-sm-5" width="800px" name="buscar" id="buscar" autocomplete="off" placeholder="    BUSCAR POR TITULO, AUTOR, EDITORIAL O TEMA" value="{{$buscar != ''?$buscar:''}}">
+                        @if ($libros->count() == 0)
+                          <button type="submit" class="button-search" disabled><i class="fas fa-search"></i> Buscar</button>
+                          @if ($buscar != '' || $libros->count() == 0)
+                          <a class=" button-search-cancelar" href="{{route('home')}}"><i class="fas fa-times"></i> Cancelar</a>
+                          @endif
+                          @else
+                          <button type="submit" class="button-search"><i class="fas fa-search"></i> Buscar</button>
+                          @if ($buscar != '')
+                          <a class="button-search-cancelar" href="{{route('home')}}"><i class="fas fa-times"></i> Cancelar</a>
+                          @endif
+                        @endif
+                      </form>
                 </div>
             </div>
+            <div class="row text-center mt-4">
+                <div class="col-md-6">
+                    <div class="titulos">
+                        <span>Recomendacion de la semana</span>
+                    </div>
+                    <div class="recuadro">
+                        <img src="img\semana.jpeg" width="200" class="zoom">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="titulos">
+                        <span>Top 10 mas leidos</span>
+                    </div>
+                    
+                    <div id="global" class="recuadro table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Titulo</th>
+                                    <th>Autor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td scope="row">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error, unde!</td>
+                                    <td>Lorem ipsum dolor sit amet.</td>
+                                </tr>
+                                <tr>
+                                    <td scope="row">Lorem ipsum dolor sit amet consectetur. </td>
+                                    <td>Lorem ipsum dolor sit. </td>
+                                </tr>
+                                <tr>
+                                    <td scope="row">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error, unde!</td>
+                                    <td>Lorem ipsum dolor sit amet.</td>
+                                </tr>
+                                <tr>
+                                    <td scope="row">Lorem ipsum dolor sit amet consectetur. </td>
+                                    <td>Lorem ipsum dolor sit. </td>
+                                </tr>
+                                <tr>
+                                    <td scope="row">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error, unde!</td>
+                                    <td>Lorem ipsum dolor sit amet.</td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
         </div>
+        <footer class="bg-light text-center fixed-bottom text-lg-start">
+            <!-- Copyright -->
+            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+              Encargados: Iliana Orduña, Norma Martínez, Esperanza Puente
+              <br>
+              © 2022 Copyright:
+              <a class="text-dark" href='https://www.freepik.es/vectores/patron'>Vector de Patrón creado por upklyak</a>
+              @if (Route::has('login'))
+              <div class="text-right links">
+                  @auth
+                      <a href="{{ url('/home') }}" class="btn btn-warning">Inicio</a>
+                  @else
+                      <a href="{{ route('login') }}" class="btn btn-primary">INICIAR SESION</a>
+                  @endauth
+              </div>
+          @endif
+            </div>
+            <!-- Copyright -->
+          </footer>
     </body>
 </html>
