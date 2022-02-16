@@ -10,57 +10,9 @@
                     </div>
                     <span class="text-warning" style="padding-left: 40%">{{$libro->autor}}</span>
                 </li>
-                <li class="inside-page-detalles">
-                    <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                </li>
-                <li class="inside-page-detalles">
-                    <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                </li>
-                <li class="inside-page-detalles">
-                    <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                </li>
+                <li class="inside-page-detalles"></li>
+                <li class="inside-page-detalles"></li>
+                <li class="inside-page-detalles"></li>
                 <li class="inside-page-detalles">
                     <div>Editorial: {{$libro->editorial}}
                         <br>
@@ -77,56 +29,22 @@
                         Notas: {{$libro->notas}}
                     </div>
                 </li>
-                <li class="inside-page-detalles">
-                    <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                </li>
-                <li class="inside-page-detalles">
-                    <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                </li>
+                <li class="inside-page-detalles"></li>
+                <li class="inside-page-detalles"></li>
                 <li class="end-page"></li>
             </ul>
         </div>
         <div class="col-1">
             @auth
-            <button class="btn btn-success" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
-                Prestar
-              </button>
-                  @else
-                      <a href="{{ route('login') }}" class="btn btn-primary">INICIAR SESION</a>
-                  @endauth
+                <button class="btn btn-success" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">Prestar</button>
+            @else
+                <a href="{{ route('login') }}" class="btn btn-primary">INICIAR SESION</a>
+            @endauth
             
         </div>
     </div>
 
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel" style=" position: absolute;">
         <div class="offcanvas-header">
           <h5 class="offcanvas-title" id="offcanvasExampleLabel">Prestamo</h5>
           <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>

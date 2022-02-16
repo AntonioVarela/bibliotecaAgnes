@@ -37,5 +37,5 @@ Route::get('/etiquetas','adminitradorController@etiquetas')->middleware('auth')-
 Route::get('/altadeusuarios','adminitradorController@altadeusuarios')->middleware('auth')->name('altadeusuarios');
 Route::post('/subiralumnos','adminitradorController@subiralumnos')->name("subiralumnos");
 Route::post('/prueba','adminitradorController@leercodigoqr')->name("prueba");
-Route::get('/buscaqr/{id}','adminitradorController@buscaqr')->name('buscaqr');
+Route::get('/buscaqr/{id}','adminitradorController@buscaqr')->name('buscaqr')->middleware('auth');
 Route::get('/prestar/{id}','adminitradorController@prestar')->name('prestar')->middleware('auth');
