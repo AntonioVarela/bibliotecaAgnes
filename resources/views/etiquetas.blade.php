@@ -19,5 +19,6 @@
     </div>
 @endforeach
 </div>
+{{ $libros->links() }}
 </div>
 @endsection

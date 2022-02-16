@@ -38,3 +38,4 @@ Route::get('/altadeusuarios','adminitradorController@altadeusuarios')->middlewar
 Route::post('/subiralumnos','adminitradorController@subiralumnos')->name("subiralumnos");
 Route::post('/prueba','adminitradorController@leercodigoqr')->name("prueba");
 Route::get('/buscaqr/{id}','adminitradorController@buscaqr')->name('buscaqr');
+Route::get('/prestar/{id}','adminitradorController@prestar')->name('prestar')->middleware('auth');

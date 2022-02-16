@@ -229,8 +229,9 @@ class adminitradorController extends Controller
 
     public function etiquetas()
     {
-        $libros = DB::table('libro')->orderBy('identificador', 'desc')->get();
-        return view('etiquetas')->with('cuenta',count($libros))->with('libros',$libros);
+        $libros = DB::table('libro')->orderBy('identificador', 'desc')->paginate(24);
+        $cuenta = libro::all();
+        return view('etiquetas')->with('cuenta',count($cuenta))->with('libros',$libros);
     }
 
     public function altadeusuarios() {
@@ -251,7 +252,34 @@ class adminitradorController extends Controller
 
     public function buscaqr($id) {
         $libro = libro::find($id);
-        return view('detalles')->with('libro',$libro);
+        $usuarios = alumno::all();
+        return view('detalles')->with('libro',$libro)->with('usuarios',$usuarios);
+    }
+
+    public function prestar($id) {
+        // $libro = libro::find($id);
+        // dd($libro);
+        // $prestamo = new prestamo();
+        // $prestamo->idLibro = $libro->idLibro;
+        // $prestamo->idUsuario = $libro->idUsuario;
+        // $prestamo->prestamo = $libro->fechaPrestamo;
+        // $prestamo->estatus = "Prestado";
+        // if($libro->categoria == "Bronce")
+        //     $prestamo->entrega = date("Y-m-d",strtotime($prestamo->prestamo."+ 5 days"));
+        // if($libro->categoria == "Plata")
+        //     $prestamo->entrega = date("Y-m-d",strtotime($prestamo->prestamo."+ 7 days"));
+        // if($libro->categoria == "Oro")
+        //     $prestamo->entrega = date("Y-m-d",strtotime($prestamo->prestamo."+ 10 days"));
+        // if($libro->categoria == "Platino")
+        //     $prestamo->entrega = date("Y-m-d",strtotime($prestamo->prestamo."+ 15 days"));
+        // $prestamo->save();
+       
+        // $log = new logs();
+        // $log->idUsuario = Auth::user()->id;
+        // $log->idCambio = $prestamo->id;
+        // $log->detalles = "Presto de un libro";
+        // $log->save();
+        // Alert::success('Movimiento realizado con exito');
     }
         
 }
