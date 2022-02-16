@@ -69,7 +69,7 @@
                 </div>
                 <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="offcanvas">Cancelar</button>
-                <button type="button" onclick="confirmarPrestamo()" class="btn btn-primary">Guardar</button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
                 </div>
             </form>
         </div>
