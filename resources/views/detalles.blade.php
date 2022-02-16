@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    
     <div class="row">
         <div class="col">
             <ul class="page-detalles">
@@ -56,7 +55,7 @@
                     <div class="mb-3">
                         <input type="text" value="{{$libro->id}}" hidden name="idLibro">
                         <label for="apellidoP" class="form-label">Usuario: </label>
-                        <select name="idUsuario" id="idUsuari" class="form-select">
+                        <select name="idUsuario" id="idLibroDetalles" class="form-select">
                             @foreach ($usuarios as $usuario)
                                 <option value="{{$usuario->id}}">{{strtoupper ($usuario->nombre)}} ({{$usuario->grado}}) </option>
                             @endforeach

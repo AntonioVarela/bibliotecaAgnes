@@ -68,9 +68,9 @@
                             <a class="nav-link menu-a {{ Request::is('prestamos') ? 'active2' : '' }}" href="{{ route('prestamos') }}">Prestamos</a>
                         </li>
                         @if ( Auth::user()->tipo == "administrador")
-                        <li>
+                        {{-- <li>
                             <a class="nav-link menu-a {{ Request::is('altadeusuarios') ? 'active2' : '' }}" href="{{route('altadeusuarios')}}">Usuarios</a>
-                        </li>
+                        </li> --}}
                         <li>
                             <a class="nav-link menu-a {{ Request::is('informes') ? 'active2' : '' }}" href="{{route('informes')}}">Informes</a>
                         </li>
@@ -141,13 +141,16 @@
             }
         }
         $(document).ready(function() {
-    $('#idLibro').select2({
-    theme: "bootstrap-5",
-});
-    $('#idUsuario').select2({
-    theme: "bootstrap-5",
-});
-});
+            $('#idLibro').select2({
+        dropdownParent: $('#modalPrestamos'),
+    });
+            $('#idUsuario').select2({
+        dropdownParent: $('#modalPrestamos'),
+    });
+    $('#idLibroDetalles').select2({
+        dropdownParent: $('#offcanvasExample'),
+    });
+        });
 function cambia(event) {
     var codigo = event.key;
     var text = $( "#titulo" ).val();
