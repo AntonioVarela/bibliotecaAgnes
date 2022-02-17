@@ -9,7 +9,7 @@
       <div class="p-2">
         <form action="{{route('buscarPrestamo')}}" method="POST">
           @csrf
-          <input type="search" class="input-search col-md-8 col-sm-8" name="buscar" id="buscar" autocomplete="off" placeholder="Buscar por Titulo de libro o Clave de usuario" value="{{$buscar != ''?$buscar:''}}">
+          <input type="search" class="input-search col-md-8 col-sm-8" name="buscar" id="buscar" autocomplete="off" placeholder="Buscar por nombre de usuario" value="{{$buscar != ''?$buscar:''}}">
           @if ($libros->count() == 0)
             <button type="submit" class="button-search" disabled><i class="fas fa-search"></i> Buscar</button>
             @if ($buscar != '' || $libros->count() == 0)
@@ -33,38 +33,42 @@
     </button>
     {{-- fin de boton de nuevos prestamos --}}
 {{-- inicio de cards de prestamos --}}
-    <div class="row" style="margin:10px 0px;">
-    @foreach ($usuarios as $usuario)
-    @foreach ($prestamos as $prestamo)
-        @if($prestamo->idUsuario == $usuario->id)
-        <div class="col-4">
-          <div class="card mt-2" style=" border-radius: 25px;">
-            <div class="card-body">
-              <strong>{{$usuario->nombre}}</strong>
-              <br>
-              <span>({{$usuario->grado}})</span>
-              <div class="list-group">
-              @foreach( $libros as $libro)
-                  @if ($prestamo->idLibro == $libro->id)
-                  @if ($prestamo->entrega <= DATE('Y-m-d'))
-                  <button type="button" class=" mt-3 list-group-item list-group-item-action bg-danger text-white">{{$libro->titulo}}</button>
-                  @else
-                  @if ($prestamo->estatus == "Prestado")
-                  <button type="button" class="mt-3 list-group-item list-group-item-action bg-success text-white">{{$libro->titulo}}</button>
-                  @else
-                  <button type="button" class="mt-3 list-group-item list-group-item-action" disabled>{{$libro->titulo}}</button>
-                  @endif
-                  @endif
-                  @endif
-              @endforeach
-              </div>
-            </div>
-          </div>
-        </div>
-         @endif
-        @endforeach
-    @endforeach
+<div class="row" style="margin:10px 0px;">
+  <h2>Resultados de {{$buscar}}</h2>
+  @foreach ($usuarios as $usuario)
+  <div class="col-4">
+      <div class="card mt-2" style=" border-radius: 25px;">
+        <div class="card-body">
+          <div class="list-group">
+          @foreach ($alumnos as $alumno)
+              @if ($alumno->id == $usuario[0]->idUsuario)
+              <strong>{{$alumno->nombre}}</strong>
+              <span>({{$alumno->grado}})</span>
+              @endif
+          @endforeach
+          @foreach ($usuario as $item)
+          @foreach ($libros as $libro)
+              @if ($libro->id == $item->idLibro)
+              @if ($item->entrega <= DATE('Y-m-d') && $item->estatus != "Devuelto")
+                <button type="button" class=" mt-3 list-group-item list-group-item-action text-danger" title="devolver" onclick="confirmarEntrega({{$item->id}})"><i class="fa-solid fa-hand-holding fa-lg"></i> {{$libro->titulo}}
+                  <br>Fecha de entrega: {{$item->entrega}}</button>
+                @else
+                @if ($item->estatus == "Prestado")
+                <button type="button" class="mt-3 list-group-item list-group-item-action  text-success" title="devolver" onclick="confirmarEntrega({{$item->id}})"><i class="fa-solid fa-hand-holding fa-lg"></i> {{$libro->titulo}} 
+                  <br>Fecha de entrega: {{$item->entrega}}</button>
+                @else
+                <button type="button" class="mt-3 list-group-item list-group-item-action" disabled><i class="fa-solid fa-hand-holding fa-lg"></i> {{$libro->titulo}}</button>
+                @endif
+                @endif
+              @endif
+          @endforeach
+          @endforeach
+      </div>
   </div>
+</div>
+</div>
+  @endforeach
+</div>
   {{-- fin de cards de prestamos --}}
 </div>
 
@@ -91,7 +95,7 @@
                   <div class="mb-3">
                     <label for="apellidoP" class="form-label">Usuario: </label>
                     <select name="idUsuario" id="idUsuario" class="form-control" style="width: 100%">
-                        @foreach ($usuarios as $usuario)
+                        @foreach ($alumnos as $usuario)
                             <option value="{{$usuario->id}}">{{ucwords($usuario->nombre)}} ({{$usuario->grado}}) </option>
                         @endforeach
                     </select>                

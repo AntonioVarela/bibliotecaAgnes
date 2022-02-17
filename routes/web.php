@@ -21,10 +21,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/captura', 'adminitradorController@captura')->middleware('auth')->name('captura');
 Route::get('/prestamos', 'adminitradorController@prestamos')->middleware('auth')->name('prestamos');
-Route::get('/usuarios', 'adminitradorController@usuarios')->middleware('auth')->name('usuarios');
 Route::get('/informes', 'adminitradorController@informesGET')->middleware('auth')->name('informes');
 Route::get('/devuelve/{id}', 'adminitradorController@devuelveGET')->middleware('auth')->name('devuelve');
-Route::POST('/usuariosPOST', 'adminitradorController@usuariosPOST')->middleware('auth')->name('usuarioPOST');
 Route::POST('/prestamoPOST', 'adminitradorController@prestamoPOST')->middleware('auth')->name('prestamoPOST');
 Route::POST('/guarda', 'adminitradorController@capturaPOST')->middleware('auth')->name('guarda');
 Route::POST('/eliminaLibro/{id}', 'adminitradorController@eliminaLibro')->middleware('auth')->name('eliminaLibro');
@@ -38,4 +36,3 @@ Route::get('/altadeusuarios','adminitradorController@altadeusuarios')->middlewar
 Route::post('/subiralumnos','adminitradorController@subiralumnos')->name("subiralumnos");
 Route::post('/prueba','adminitradorController@leercodigoqr')->name("prueba");
 Route::get('/buscaqr/{id}','adminitradorController@buscaqr')->name('buscaqr')->middleware('auth');
-Route::get('/prestar/{id}','adminitradorController@prestar')->name('prestar')->middleware('auth');

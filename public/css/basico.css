@@ -253,6 +253,17 @@ body {
     text-transform: capitalize;
 }
 
+.titulo-busqueda {
+    color: rgb(255, 255, 255);
+    font-family: 'Dancing Script', cursive;
+    margin-top: 20%;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 100%;
+    font-weight: 400;
+    text-transform: capitalize;
+}
+
 
 /* / * Agrega degradado y tamaño a la página de contraportada * / */
 

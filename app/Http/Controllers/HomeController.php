@@ -24,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     { 
-        $libros = libro::orderBy('identificador', 'ASC')->paginate(10);
+        $libros = libro::orderBy('identificador', 'DESC')->paginate(10);
         return view('home')->with('libros',$libros)->with('buscar','');
     }
 }
