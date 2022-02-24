@@ -177,7 +177,23 @@ class adminitradorController extends Controller
 
     public function buscarLibro(Request $request ) {
         $libros = libro::where('titulo', 'like' ,'%'.$request['buscar'].'%')->orWhere('autor', 'like' ,'%'.$request['buscar'].'%')->orWhere('editorial', 'like' ,'%'.$request['buscar'].'%')->orWhere('tema', 'like' ,'%'.$request['buscar'].'%')->paginate(10);
-        return view('busquedaLibros')->with('libros',$libros)->with('buscar',$request['buscar']);
+        if(Auth::user()){
+            if(Auth::user()->grado == "all") {
+                $usuarios = alumno::all();
+             } else {
+                if(Auth::user()->grado == "s") {
+                    $usuarios = alumno::where('grado','1°A S')->orwhere('grado','1°B S')->orwhere('grado','2°A S')
+                    ->orwhere('grado','2°B S')->orwhere('grado','3°A S')->orwhere('grado','3°B S')->get();
+                 } else {
+                    $usuarios = alumno::where('grado', Auth::user()->grado);
+                 }
+             }
+        } else {
+            $usuarios = alumno::all();
+        }
+        
+         
+        return view('busquedaLibros')->with('libros',$libros)->with('buscar',$request['buscar'])->with('usuarios',$usuarios);
     }
 
     public function prestamoPOST(Request $request) {
