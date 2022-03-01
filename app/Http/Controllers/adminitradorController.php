@@ -176,7 +176,7 @@ class adminitradorController extends Controller
     }
 
     public function buscarLibro(Request $request ) {
-        $libros = libro::where('titulo', 'like' ,'%'.$request['buscar'].'%')->orWhere('autor', 'like' ,'%'.$request['buscar'].'%')->orWhere('editorial', 'like' ,'%'.$request['buscar'].'%')->orWhere('tema', 'like' ,'%'.$request['buscar'].'%')->paginate(10);
+        $libros = libro::where('titulo', 'like' ,'%'.$request['buscar'].'%')->orWhere('autor', 'like' ,'%'.$request['buscar'].'%')->orWhere('editorial', 'like' ,'%'.$request['buscar'].'%')->orWhere('tema', 'like' ,'%'.$request['buscar'].'%')->orWhere('identificador', $request['buscar'])->paginate(10);
         if(Auth::user()){
             if(Auth::user()->grado == "all") {
                 $usuarios = alumno::all();
