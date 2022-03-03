@@ -9,7 +9,7 @@
   <div class="col-7">
       {!!QrCode::size(110)->generate("http://biblioteca-agnes.herokuapp.com/buscaqr/" . $libro->id) !!}
   </div>
-  <div class="col-5 justify-content-center pt-4 " style="font-size: 40px">
+  <div class="col-5 justify-content-center" style="font-size: 20px; padding-top:40px">
     {{$libro->identificador}}
   </div>
 </div>
