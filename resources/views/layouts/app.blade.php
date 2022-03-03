@@ -158,19 +158,30 @@
         }
         $(document).ready(function() {
             $('#idLibro').select2({
-        dropdownParent: $('#modalPrestamos'),
-    });
+                dropdownParent: $('#modalPrestamos'),
+            });
             $('#idUsuario').select2({
-        dropdownParent: $('#modalPrestamos'),
-    });
-    $('#idLibroDetalles').select2({
-        dropdownParent: $('#offcanvasExample'),
-    });
+                dropdownParent: $('#modalPrestamos'),
+            });
+            $('#idLibroDetalles').select2({
+                dropdownParent: $('#offcanvasExample'),
+            });
         });
+
 function cambia(event) {
     var codigo = event.key;
     var text = $( "#titulo" ).val();
     $( "#titulo2" ).val(text);
+}
+
+function desaparece(id) {
+    $("#libros158").css("position","sticky");
+    $('#idLibroDetalles').select2({
+                dropdownParent: $('#offcanvasExample'+id),
+            });
+}
+function normalidad() {
+    $("#libros158").css("position","relative");
 }
     </script>
 </body>

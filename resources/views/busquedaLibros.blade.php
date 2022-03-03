@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="p-4">
+<div style="margin-left: 10%;">
 <h2>Resultados de {{$buscar}}</h2>
-    <div class="row">
+    <div class="row" id="libros158">
         @foreach ($libros as $libro)
-        <div class="col-3">
+        <div class=" col-lg-3 col-sm-6 ">
             <ul class="page">
                 <li class="cover-page">
                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill fs-6 bg-danger">
@@ -81,7 +81,7 @@
                     </span>
                     
                     @auth
-                    <button class="btn-sm btn-success" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample{{$libro->id}}" aria-controls="offcanvasExample">Prestar</button>
+                    <button class="btn-sm btn-success" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample{{$libro->id}}" onclick="desaparece({{$libro->id}})" aria-controls="offcanvasExample">Prestar</button>
                     @endauth
                 </li>
                 <li class="inside-page">
@@ -121,37 +121,40 @@
                 <li class="end-page"></li>
             </ul>
         </div>
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample{{$libro->id}}" aria-labelledby="offcanvasExampleLabel">
-            <div class="offcanvas-header">
-              <h5 class="offcanvas-title" id="offcanvasExampleLabel">Prestamo</h5>
-              <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body">
-                <form action="{{route('prestamoPOST')}}" id="PrestamoPOST" method="post">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <input type="text" value="{{$libro->id}}" hidden name="idLibro">
-                            <label for="apellidoP" class="form-label">Usuario: </label>
-                            <select name="idUsuario" id="idLibroDetalles" class="form-select">
-                                @foreach ($usuarios as $usuario)
-                                    <option value="{{$usuario->id}}">{{strtoupper ($usuario->nombre)}} ({{$usuario->grado}}) </option>
-                                @endforeach
-                            </select>                
-                          </div>
-                          <div class="mb-3">
-                            <label for="fechaPrestamo" class="form-label">Fecha Prestamo</label>
-                            <input type="date" class="form-control" id="fechaPrestamo" value="<?php echo date('Y-m-d'); ?>" name="fechaPrestamo" required>
-                          </div>        
-                    </div>
-                    <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="offcanvas">Cancelar</button>
-                    <button type="submit" class="btn btn-primary">Guardar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
         @endforeach
     </div>
 </div>
+@foreach ($libros as $libro)
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample{{$libro->id}}" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasExampleLabel">Prestamo</h5>
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" onclick="normalidad()" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <form action="{{route('prestamoPOST')}}" id="PrestamoPOST" method="post">
+            @csrf
+            <div class="modal-body">
+                <div class="mb-3">
+                    <input type="text" value="{{$libro->id}}" hidden name="idLibro">
+                    <label for="apellidoP" class="form-label">Usuario: </label>
+                    <select name="idUsuario" id="idLibroDetalles" class="form-select">
+                        @foreach ($usuarios as $usuario)
+                            <option value="{{$usuario->id}}">{{strtoupper ($usuario->nombre)}} ({{$usuario->grado}}) </option>
+                        @endforeach
+                    </select>                
+                  </div>
+                  <div class="mb-3">
+                    <label for="fechaPrestamo" class="form-label">Fecha Prestamo</label>
+                    <input type="date" class="form-control" id="fechaPrestamo" value="<?php echo date('Y-m-d'); ?>" name="fechaPrestamo" required>
+                  </div>        
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="offcanvas" onclick="normalidad()">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>    
+@endforeach
 @endsection

@@ -4,9 +4,11 @@
     <div class="row">
         <div class="col">
             <ul class="page-detalles">
-                <li class="cover-page">
-                    <div class="titulo-detalles">{{$libro->titulo}}
-                    </div>
+                <li class="cover-page"> <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill fs-6 bg-danger">
+                    {{$libro->identificador}}
+                </span>
+                <div class="text-white pt-2 fs-3 pr-1" style="text-transform:capitalize;">{{$libro->titulo}}
+                </div>
                     <span class="text-warning" style="padding-left: 40%">{{$libro->autor}}</span>
                 </li>
                 <li class="inside-page-detalles"></li>

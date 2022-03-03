@@ -222,7 +222,7 @@ class adminitradorController extends Controller
     }
 
     public function etiquetas() {
-        $libros = DB::table('libro')->orderBy('identificador', 'desc')->paginate(24);
+        $libros = DB::table('libro')->orderBy('identificador', 'desc')->paginate(48);
         $cuenta = libro::all();
         return view('etiquetas')->with('cuenta',count($cuenta))->with('libros',$libros);
     }
