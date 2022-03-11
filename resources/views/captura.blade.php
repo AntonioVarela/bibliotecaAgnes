@@ -10,6 +10,7 @@
     <form action="{{route('duplicar')}}" method="post">
         @csrf
         <input type="text" hidden class="form-control" id="titulo2" name="titulo2" >
+        <input type="text" hidden class="form-control" id="identificador2" name="identificador2" >
         <button>Duplicar</button>
     </form>
     <form action="guarda" method="post" enctype="multipart/form-data">
@@ -25,7 +26,7 @@
               <div class="col-6">
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon3">Identificador <span class="text-danger">*</span></span>
-                    <input type="text" class="form-control" id="identificador" name="identificador" value="{{$cuenta+1}}" required aria-describedby="basic-addon3">
+                    <input type="text" class="form-control" id="identificador" onchange="cambiaID(event)" name="identificador" value="{{$cuenta+1}}" required aria-describedby="basic-addon3">
                 </div>  
               </div>
     </div>

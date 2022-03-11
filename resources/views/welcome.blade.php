@@ -144,7 +144,7 @@
             <div class="row text-center mt-4">
                 <div class="col-md-6">
                     <div class="titulos">
-                        <span>Recomendacion de la semana</span>
+                        <span>Recomendacion del mes</span>
                     </div>
                     <div class="recuadro">
                         <img src="img\semana.jpeg" width="200" class="zoom">

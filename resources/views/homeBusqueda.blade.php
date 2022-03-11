@@ -132,11 +132,6 @@
               </tbody>
         </table>
     </div>
-    <div class="row justify-content-center">
-      <div class="col-12">
-        {{ $libros->links() }}
-      </div>
-    </div>
 </div>
 
 @endsection

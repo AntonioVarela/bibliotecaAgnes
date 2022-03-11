@@ -174,6 +174,12 @@ function cambia(event) {
     $( "#titulo2" ).val(text);
 }
 
+function cambiaID(event) {
+    var codigo = event.key;
+    var text = $( "#identificador" ).val();
+    $( "#identificador2" ).val(text);
+}
+
 function desaparece(id) {
     $("#libros158").css("position","sticky");
     $('#idLibroDetalles').select2({

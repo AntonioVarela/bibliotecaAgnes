@@ -29,6 +29,8 @@ Route::POST('/eliminaLibro/{id}', 'adminitradorController@eliminaLibro')->middle
 Route::POST('/guardaModificacionLibro/{id}', 'adminitradorController@modificaLibroPOST')->middleware('auth')->name('modificaLibro');
 Route::get('/modificarlibro/{id}', 'adminitradorController@modificaGET')->middleware('auth')->name('modificarlibro');
 Route::post('/buscar','adminitradorController@buscarLibro')->name('buscar');
+Route::post('/buscardetalles','adminitradorController@buscarLibroDetalles')->name('buscarDetalles');
+Route::post('/filtraPorNumeros','adminitradorController@filtraPorNumeros')->name('filtraPorNumeros');
 Route::post('/buscarPrestamo','adminitradorController@buscarPrestamo')->name('buscarPrestamo');
 Route::post('/duplicar','adminitradorController@duplicar')->name("duplicar");
 Route::get('/etiquetas','adminitradorController@etiquetas')->middleware('auth')->name('etiquetas');

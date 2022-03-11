@@ -26,13 +26,12 @@ class adminitradorController extends Controller
     }
 
     public function duplicar(Request $request) {
-        $total = count(libro::all());
         $cadena1 = explode("(",$request['titulo2']);
         $cadena2= explode(")",$cadena1[1]);
         $titulo =  substr($cadena1[0], 0, -1);;
         $editorial = $cadena2[0];
         $libro = libro::where('titulo', $titulo)->where('editorial', $editorial)->first();
-        $libro->identificador = $total;
+        $libro->identificador = $request['identificador2'];
         $nuevoLibro = new libro();
         $nuevoLibro->titulo = $libro->titulo;
         $nuevoLibro->identificador = $libro->identificador;
@@ -190,10 +189,34 @@ class adminitradorController extends Controller
              }
         } else {
             $usuarios = alumno::all();
-        }
-        
-         
+        }         
         return view('busquedaLibros')->with('libros',$libros)->with('buscar',$request['buscar'])->with('usuarios',$usuarios);
+    }
+
+    public function buscarLibroDetalles(Request $request ) {
+        $libros = libro::where('titulo', 'like' ,'%'.$request['buscar'].'%')->orWhere('autor', 'like' ,'%'.$request['buscar'].'%')->orWhere('editorial', 'like' ,'%'.$request['buscar'].'%')->orWhere('tema', 'like' ,'%'.$request['buscar'].'%')->orWhere('identificador', $request['buscar'])->get();
+        if(Auth::user()){
+            if(Auth::user()->grado == "all") {
+                $usuarios = alumno::all();
+             } else {
+                if(Auth::user()->grado == "s") {
+                    $usuarios = alumno::where('grado','1°A S')->orwhere('grado','1°B S')->orwhere('grado','2°A S')
+                    ->orwhere('grado','2°B S')->orwhere('grado','3°A S')->orwhere('grado','3°B S')->get();
+                 } else {
+                    $usuarios = alumno::where('grado', Auth::user()->grado);
+                 }
+             }
+        } else {
+            $usuarios = alumno::all();
+        }         
+        return view('homeBusqueda')->with('libros',$libros)->with('buscar',$request['buscar'])->with('usuarios',$usuarios);
+    }
+
+    public function filtraPorNumeros(Request $request) {
+        $libros = libro::whereBetween('identificador', [$request['del'],$request['al']])->orderBy('identificador','asc')->get();
+        $usuarios = alumno::all();
+        return view('homeBusqueda')->with('libros',$libros)->with('buscar',$request['buscar'])->with('usuarios',$usuarios);
+
     }
 
     public function prestamoPOST(Request $request) {
