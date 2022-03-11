@@ -16,7 +16,7 @@
         <!-- Styles -->
         <style>
            body {
-               background-image: url("img/biblioteca.jpg");
+               background-image: url("img/fondo.svg");
                background-repeat: no-repeat;
                background-position: center center;
                background-attachment: fixed;
@@ -119,9 +119,12 @@
     <body>        
         <div class="container">
             <div class="row p-4 text-center titulos">
-                <div class="col-12 p-2">
+                <div class="col-8 p-2">
                     <img src="img\Agnes-logo.png" width="80">
                     <span class="text-black">COLEGIO AGNES GONXHA</span>
+                </div>
+                <div class="col-4">
+                    <a href="" class="link-light">Reglamento</a>
                 </div>
                 <div class="row" style="margin-top: auto; margin-bottom:auto;">
                     <form action="{{route('buscar')}}" method="POST">

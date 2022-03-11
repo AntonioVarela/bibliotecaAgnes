@@ -67,6 +67,9 @@
                         <li>
                             <a class="nav-link menu-a {{ Request::is('prestamos') ? 'active2' : '' }}" href="{{ route('prestamos') }}">Prestamos</a>
                         </li>
+                        <li>
+                            <a class="nav-link menu-a {{ Request::is('prestamos') ? 'active2' : '' }}" href="{{ route('prestamos') }}">Reservación</a>
+                        </li>
                         @if ( Auth::user()->tipo == "administrador")
                         {{-- <li>
                             <a class="nav-link menu-a {{ Request::is('altadeusuarios') ? 'active2' : '' }}" href="{{route('altadeusuarios')}}">Usuarios</a>
