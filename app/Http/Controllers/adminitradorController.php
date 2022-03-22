@@ -121,11 +121,15 @@ class adminitradorController extends Controller
         $libros = libro::all();
          if(Auth::user()->grado == "all") {
             $usuarios = alumno::all();
+         }else {
+            if(Auth::user()->grado == "s") {
+                $usuarios = alumno::where('grado','1°A S')->orwhere('grado','1°B S')->orwhere('grado','2°A S')
+                ->orwhere('grado','2°B S')->orwhere('grado','3°A S')->orwhere('grado','3°B S')->get();
+             } else {
+                 $usuarios = alumno::where('grado',Auth::user()->grado)->get();
+             }
          }
-         if(Auth::user()->grado == "s") {
-            $usuarios = alumno::where('grado','1°A S')->orwhere('grado','1°B S')->orwhere('grado','2°A S')
-            ->orwhere('grado','2°B S')->orwhere('grado','3°A S')->orwhere('grado','3°B S')->get();
-         }
+         
          $resultado = collect([]);
          foreach($usuarios as $alumno){
             $prestamos = prestamo::where('idUsuario',$alumno->id)->get();
@@ -150,6 +154,7 @@ class adminitradorController extends Controller
     }
 
     public function devuelveGET($id) {
+        // dd($id);
         $prestamo = prestamo::find($id);
         $prestamo->estatus = "Devuelto";
         $prestamo->save();

@@ -47,20 +47,11 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
+                @auth
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto nav-pills">
-                        <!-- Authentication Links -->
-                        @guest {{--
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                        </li> --}} {{-- @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                        </li>
-                        @endif --}} @else
+                    <ul class="navbar-nav ml-auto nav-pills">                        
                         <li>
                             <a class="nav-link menu-a {{ Request::is('home') ? 'active2' : '' }}" href="{{ route('home') }}">Inventario</a>
                         </li>
@@ -68,15 +59,19 @@
                             <a class="nav-link menu-a {{ Request::is('prestamos') ? 'active2' : '' }}" href="{{ route('prestamos') }}">Prestamos</a>
                         </li>
                         <li>
-                            <a class="nav-link menu-a {{ Request::is('prestamos') ? 'active2' : '' }}" href="{{ route('prestamos') }}">Reservación</a>
+                            <a class="nav-link menu-a {{ Request::is('reservacion') ? 'active2' : '' }}" href="{{ route('prestamos') }}">Reservación</a>
                         </li>
-                        @if ( Auth::user()->tipo == "administrador")
-                        {{-- <li>
-                            <a class="nav-link menu-a {{ Request::is('altadeusuarios') ? 'active2' : '' }}" href="{{route('altadeusuarios')}}">Usuarios</a>
-                        </li> --}}
+                        @if ( Auth::user()->tipo == "administrador" || Auth::user()->tipo == "programador")
                         <li>
                             <a class="nav-link menu-a {{ Request::is('informes') ? 'active2' : '' }}" href="{{route('informes')}}">Informes</a>
                         </li>
+                        @endif
+                        @if (Auth::user()->tipo == "programador")
+                        <li>
+                            <a class="nav-link menu-a {{ Request::is('altadeusuarios') ? 'active2' : '' }}" href="{{route('altadeusuarios')}}">Usuarios</a>
+                        </li>
+                        <a class="nav-link menu-a {{ Request::is('etiquetas') ? 'active2' : '' }}" href="{{route('etiquetas')}}">Etiquetas</a>
+                        <li></li>
                         @endif
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle menu-a" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -94,9 +89,10 @@
                                 </form>
                             </div>
                         </li>
-                        @endguest
                     </ul>
                 </div>
+                @endauth
+                
             </div>
         </nav>
 
@@ -148,7 +144,7 @@
                 confirmButtonText: 'Aceptar'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = "http://biblioteca.test/devuelve/"+id;
+                    window.location.href = "http://192.168.100.45:8000/devuelve/"+id;
                 }
             })
         }

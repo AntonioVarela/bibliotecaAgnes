@@ -4,7 +4,7 @@
 @include('sweetalert::alert')
 <div class="" style="margin:10px 10px;" >
     <div class="row text-center bg-white p-3" style="border-radius: 25px; margin:10px 10px;" >
-    <h2 >Prestamos (Activos)</h2>
+    <h2 >Prestamos</h2>
     <div class="row justify-content-center">
       <div class="p-2">
         <form action="{{route('buscarPrestamo')}}" method="POST">
@@ -34,7 +34,6 @@
     {{-- fin de boton de nuevos prestamos --}}
 {{-- inicio de cards de prestamos --}}
 <div class="row" style="margin:10px 0px;">
-  <h2>Resultados de {{$buscar}}</h2>
   @foreach ($usuarios as $usuario)
   <div class="col-4">
       <div class="card mt-2" style=" border-radius: 25px;">

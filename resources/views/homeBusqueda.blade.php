@@ -36,9 +36,9 @@
     <div class="col-4 pt-2">
       <form action="{{route('filtraPorNumeros')}}" method="POST">
         @csrf
-        <input type="number" name="del" id="del"> -
-        <input type="number" name="al" id="al">
-        <button>buscar</button>
+        <input type="number" style="width:60px" name="del" id="del"> -
+        <input type="number" style="width:60px" name="al" id="al">
+        <button class="text-white btn btn-info" style="border-radius: 50%"><i class="fas fa-search"></i></button>
       </form>
     </div>
     
