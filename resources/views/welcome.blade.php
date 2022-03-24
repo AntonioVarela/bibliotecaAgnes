@@ -161,7 +161,7 @@
                                 <img src="img\semana.jpeg" width="200" class="zoom">
                               </div>
                               <div class="carousel-item">
-                                <img src="img\semana.jpeg" width="200" class="zoom">
+                                <img src="img\semana2.png" width="200" class="zoom">
                               </div>
                               <div class="carousel-item">
                                 <img src="img\semana.jpeg" width="200" class="zoom">
@@ -220,19 +220,18 @@
             </div>
             
         </div>
-        <footer class="bg-light text-center fixed-bottom text-lg-start">
+        <footer class="bg-light mt-4 text-center text-lg-start">
             <!-- Copyright -->
             <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
               Encargadas: Iliana Orduño, Norma Martínez, Esperanza Puente, Denisse Ortega
               <br>
-              © 2022 Copyright:
-              <a class="text-dark" href='https://www.freepik.es/vectores/patron'>Vector de Patrón creado por upklyak</a>
+              © 2022 Copyright Colegio Agnes Gonxha
               @if (Route::has('login'))
               <div class="text-right links">
                   @auth
-                      <a href="{{ url('/home') }}" class="btn btn-warning">Inicio</a>
+                      <a href="{{ url('/home') }}" class="btn btn-sm btn-warning">Inicio</a>
                   @else
-                      <a href="{{ route('login') }}" class="btn btn-primary">INICIAR SESION</a>
+                      <a href="{{ route('login') }}" class="btn btn-sm btn-primary">INICIAR SESION</a>
                   @endauth
               </div>
           @endif
