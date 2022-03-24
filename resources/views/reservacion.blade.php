@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-{{-- @section('scripts')
+@section('scripts')
 <script src="{{ asset('js/app.js') }}" defer></script>
 <link href='{{asset('js/lib/main.css')}}' rel='stylesheet' />
 <script src='{{asset('js/lib/main.js')}}'></script>
@@ -49,4 +49,4 @@
 <div class="container bg-dark p-3 text-white">
     <div id='calendar'></div>
 </div>
-@endsection --}}
+@endsection
