@@ -47,6 +47,6 @@
     
 </div>
 <div class="container bg-dark p-3 text-white">
-    <div id='calendar'></div>
+    {{-- <div id='calendar'></div> --}}
 </div>
 @endsection

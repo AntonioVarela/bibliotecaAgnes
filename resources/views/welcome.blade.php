@@ -220,7 +220,7 @@
             </div>
             
         </div>
-        <footer class="bg-light mt-4 text-center text-lg-start">
+        <footer class="bg-light mt-4 text-center fixed-bottom text-lg-start">
             <!-- Copyright -->
             <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
               Encargadas: Iliana Orduño, Norma Martínez, Esperanza Puente, Denisse Ortega
