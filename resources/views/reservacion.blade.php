@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('scripts')
+<script src="{{ asset('js/app.js') }}" defer></script>
 <link href='{{asset('js/lib/main.css')}}' rel='stylesheet' />
 <script src='{{asset('js/lib/main.js')}}'></script>
 <script src='{{asset('js/lib/locales/es.js')}}'></script>
 <link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css' rel='stylesheet'>
 <script>
-    // var json = '{{json_encode($datos)}}';
     var data = {!! $datos !!};
   document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
@@ -47,6 +47,6 @@
     
 </div>
 <div class="container bg-dark p-3 text-white">
-    {{-- <div id='calendar'></div> --}}
+    <div id='calendar'></div>
 </div>
 @endsection

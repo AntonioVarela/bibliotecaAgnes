@@ -280,9 +280,7 @@ class adminitradorController extends Controller
     
     public function inicioreservacion () {
         $data = reservacion::all();
-        // $json = response()->json($data,200,[]);
         $json = json_encode($data);
-        // dd($data);
         return view('reservacion')->with("datos",$json);
         }
 }
