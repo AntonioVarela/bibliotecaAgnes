@@ -34,6 +34,8 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/basico.css') }}" rel="stylesheet">
+
+    @yield('scripts')
 </head>
 
 <body>
@@ -59,7 +61,7 @@
                             <a class="nav-link menu-a {{ Request::is('prestamos') ? 'active2' : '' }}" href="{{ route('prestamos') }}">Prestamos</a>
                         </li>
                         <li>
-                            <a class="nav-link menu-a {{ Request::is('reservacion') ? 'active2' : '' }}" href="{{ route('prestamos') }}">Reservación</a>
+                            <a class="nav-link menu-a {{ Request::is('reservacion') ? 'active2' : '' }}" href="{{ route('reservacion') }}">Reservación</a>
                         </li>
                         @if ( Auth::user()->tipo == "administrador" || Auth::user()->tipo == "programador")
                         <li>

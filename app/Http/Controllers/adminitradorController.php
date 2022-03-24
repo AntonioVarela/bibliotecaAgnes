@@ -7,6 +7,7 @@ use App\libro;
 use App\logs;
 use App\prestamo;
 use App\alumno;
+use App\reservacion;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -276,5 +277,12 @@ class adminitradorController extends Controller
         $usuarios = alumno::all();
         return view('detalles')->with('libro',$libro)->with('usuarios',$usuarios);
     }
-        
+    
+    public function inicioreservacion () {
+        $data = reservacion::all();
+        // $json = response()->json($data,200,[]);
+        $json = json_encode($data);
+        // dd($data);
+        return view('reservacion')->with("datos",$json);
+        }
 }

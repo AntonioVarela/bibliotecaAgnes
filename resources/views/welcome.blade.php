@@ -223,7 +223,7 @@
         <footer class="bg-light text-center fixed-bottom text-lg-start">
             <!-- Copyright -->
             <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-              Encargados: Iliana Orduña, Norma Martínez, Esperanza Puente
+              Encargadas: Iliana Orduño, Norma Martínez, Esperanza Puente, Denisse Ortega
               <br>
               © 2022 Copyright:
               <a class="text-dark" href='https://www.freepik.es/vectores/patron'>Vector de Patrón creado por upklyak</a>
