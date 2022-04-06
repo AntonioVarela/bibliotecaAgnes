@@ -12,6 +12,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+
 class adminitradorController extends Controller
 {
 
@@ -282,5 +283,31 @@ class adminitradorController extends Controller
         $data = reservacion::all();
         $json = json_encode($data);
         return view('reservacion')->with("datos",$json);
+    }
+
+    public function reservacionPost(Request $request) {
+        // 2022-04-06T12:32
+        $data = reservacion::all();
+        $hora = $request['hora'] . ":" . $request['minuto'];
+        $reservacion = new reservacion();
+        $reservacion->fecha = $request['fecha'];
+        $reservacion->hora = $hora;
+        $fechatexto = $request['fecha'] . " " . $hora;
+        $NuevaFecha = strtotime ( '+30 minute' , strtotime ($fechatexto) ) ; 
+        $reservacion->title = Auth::user()->name;
+        $reservacion->start = $fechatexto;
+        $reservacion->end = date ( 'Y-m-d H:i:s' , $NuevaFecha);
+        $reservacion->color = $request['color'];
+        // dd($reservacion);
+        
+        foreach($data as $evento){
+            if($evento->fecha == $reservacion->fecha && $evento->hora == $reservacion->hora){
+                Alert::error('error al reservar a esa hora');
+                return redirect()->back();
+            }
+                
         }
+        $reservacion->save();
+        return redirect()->back();
+    }
 }

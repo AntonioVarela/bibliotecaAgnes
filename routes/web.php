@@ -39,3 +39,4 @@ Route::post('/subiralumnos','adminitradorController@subiralumnos')->name("subira
 Route::post('/prueba','adminitradorController@leercodigoqr')->name("prueba");
 Route::get('/buscaqr/{id}','adminitradorController@buscaqr')->name('buscaqr')->middleware('auth');
 Route::get('/reservacion','adminitradorController@inicioreservacion')->name('reservacion')->middleware('auth');
+Route::post('/reservacionPost','adminitradorController@reservacionPost')->name('reservacionpost')->middleware('auth');
