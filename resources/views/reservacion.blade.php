@@ -9,9 +9,12 @@
 <script>
     var data = {!! $datos !!};
   document.addEventListener('DOMContentLoaded', function() {
+    let formulario = document.querySelector("form");
+    var style = "";
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
-      headerToolbar: { center: 'dayGridMonth,timeGridWeek' },
+      initialView: 'timeGridWeek',
+      headerToolbar: { start: 'today prev,next', center: 'title',end: 'timeGridWeek,dayGridMonth'},
       locale: 'esLocale',
       events: data,
       buttonText: {
@@ -22,16 +25,23 @@
             list:     'list'
             },
             navLinks: true,
-            navLinkDayClick: function(date, jsEvent) {
-              console.log('day', date.toISOString());
-              console.log('coords', jsEvent.pageX, jsEvent.pageY);
+            eventMouseEnter: function(info) {
+              style = info.event.backgroundColor;
+              info.el.style.borderColor = 'red';
+              info.el.style = "box-shadow: rgb(216 2 255) 0px 0px 10px 6px;border:none; background-color:rgb(216 2 255)";
+              var evento = info.event;
+              // console.log(info.event.backgroundColor);
             },
-      views: {
-        dayGridMonth: { // name of view
+            eventMouseLeave: function(info) {
+              info.el.style = "background-color:"+style+"; border:none";
+              console.log(style);
+            },
+      views: { 
+        timeGridWeek: {
           allDaySlot: false,
-          contentHeight: 600,
+          contentHeight: 480,
           slotMinTime: '07:00:00',
-          slotMaxTime: '20:00:00',
+          slotMaxTime: '16:00:00',
           nowIndicator: true,
           slotLabelFormat: {
             hour: 'numeric',
@@ -39,18 +49,16 @@
             omitZeroMinute: false,
             }
           },
-          timeGridWeek: {
-          allDaySlot: false,
+
+        dayGridMonth: { // name of view
           contentHeight: 600,
-          slotMinTime: '07:00:00',
-          slotMaxTime: '20:00:00',
-          nowIndicator: true,
           slotLabelFormat: {
             hour: 'numeric',
             minute: '2-digit',
             omitZeroMinute: false,
             }
-          }
+          },
+         
       }
     });
     calendar.render();
@@ -65,9 +73,9 @@
 <div class="row">
 
   
-    <div class="col-7" style="margin: 0 0 20px 100px">
+    <div class="col-11 mb-3">
       <!-- Button trigger modal -->
-      <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modelId">
+      <button type="button" class="btn btn-primary btn-lg float-end" data-toggle="modal" data-target="#modelId">
         Reservar ahora
       </button>
       
@@ -133,7 +141,7 @@
     </div>
     
 </div>
-<div class="container bg-dark p-3 text-white">
+<div class="" style="background-color: white; padding:32px;margin:5px 40px; border-radius: 74px; box-shadow: 10px 5px 5px #0000002e;">
     <div id='calendar'></div>
 </div>
 @endsection
