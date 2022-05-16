@@ -15,6 +15,78 @@
         {{-- <link href="{{ asset('css/basico.css') }}" rel="stylesheet"> --}}
         <!-- Styles -->
         <style>
+            .heartbeat {
+                -webkit-animation: heartbeat 1.5s ease-in-out infinite both;
+                        animation: heartbeat 1.5s ease-in-out infinite both;
+            }
+            @-webkit-keyframes heartbeat {
+                from {
+                    -webkit-transform: scale(1);
+                            transform: scale(1);
+                    -webkit-transform-origin: center center;
+                            transform-origin: center center;
+                    -webkit-animation-timing-function: ease-out;
+                            animation-timing-function: ease-out;
+                }
+                10% {
+                    -webkit-transform: scale(0.91);
+                            transform: scale(0.91);
+                    -webkit-animation-timing-function: ease-in;
+                            animation-timing-function: ease-in;
+                }
+                17% {
+                    -webkit-transform: scale(0.98);
+                            transform: scale(0.98);
+                    -webkit-animation-timing-function: ease-out;
+                            animation-timing-function: ease-out;
+                }
+                33% {
+                    -webkit-transform: scale(0.87);
+                            transform: scale(0.87);
+                    -webkit-animation-timing-function: ease-in;
+                            animation-timing-function: ease-in;
+                }
+                45% {
+                    -webkit-transform: scale(1);
+                            transform: scale(1);
+                    -webkit-animation-timing-function: ease-out;
+                            animation-timing-function: ease-out;
+                }
+                }
+                @keyframes heartbeat {
+                from {
+                    -webkit-transform: scale(1);
+                            transform: scale(1);
+                    -webkit-transform-origin: center center;
+                            transform-origin: center center;
+                    -webkit-animation-timing-function: ease-out;
+                            animation-timing-function: ease-out;
+                }
+                10% {
+                    -webkit-transform: scale(0.91);
+                            transform: scale(0.91);
+                    -webkit-animation-timing-function: ease-in;
+                            animation-timing-function: ease-in;
+                }
+                17% {
+                    -webkit-transform: scale(0.98);
+                            transform: scale(0.98);
+                    -webkit-animation-timing-function: ease-out;
+                            animation-timing-function: ease-out;
+                }
+                33% {
+                    -webkit-transform: scale(0.87);
+                            transform: scale(0.87);
+                    -webkit-animation-timing-function: ease-in;
+                            animation-timing-function: ease-in;
+                }
+                45% {
+                    -webkit-transform: scale(1);
+                            transform: scale(1);
+                    -webkit-animation-timing-function: ease-out;
+                            animation-timing-function: ease-out;
+                }
+                }
            body {
                background-image: url("img/fondo.svg");
                background-repeat: no-repeat;
@@ -37,12 +109,8 @@
                     background-color: #ffffff86;
                     box-shadow: 12px 12px 20px -12px rgba(0, 0, 0, 0.55);
                 }
-            img.zoom {
-                width: 200px;
-                -webkit-transition: all .2s ease-in-out;
-                -moz-transition: all .2s ease-in-out;
-                -o-transition: all .2s ease-in-out;
-                -ms-transition: all .2s ease-in-out;
+            img.zoom:hover {
+                cursor: pointer;
             }
             
             .transition {
@@ -107,15 +175,7 @@
         overflow-y: scroll;
     }
         </style>
-        <script>
-            $(document).ready(function(){
-                $('.zoom').hover(function() {
-                    $(this).addClass('transition');
-                }, function() {
-                    $(this).removeClass('transition');
-                });
-            });
-            </script>
+        
     </head>
     <body>        
         <div class="container">
@@ -161,13 +221,13 @@
                             </div>
                             <div class="carousel-inner">
                               <div class="carousel-item active">
-                                <img src="img\semana.jpeg" width="200" class="zoom">
+                                <img src="img\semana.jpeg" width="200" data-bs-toggle="modal" data-bs-target="#modelId" class="zoom heartbeat">
                               </div>
                               <div class="carousel-item">
-                                <img src="img\semana2.png" width="200" class="zoom">
+                                <img src="img\semana2.png" width="200" data-bs-toggle="modal" data-bs-target="#modelId2" class="zoom heartbeat">
                               </div>
                               <div class="carousel-item">
-                                <img src="img\semana.jpeg" width="200" class="zoom">
+                                <img src="img\semana.jpeg" width="200" data-bs-toggle="modal" data-bs-target="#modelId" class="zoom heartbeat">
                               </div>
                             </div>
                             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -218,6 +278,35 @@
                                 
                             </tbody>
                         </table>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <!-- Modal imagen 1 -->
+            <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                <div class="modal-dialog modal-xl text-center" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="container-fluid">
+                            <img src="img\semana.jpeg">
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Modal imagen 2 -->
+            <div class="modal fade" id="modelId2" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                <div class="modal-dialog modal-xl text-center" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="container-fluid">
+                            <img src="img\semana2.png">
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
             </div>

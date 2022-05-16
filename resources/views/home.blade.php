@@ -145,10 +145,10 @@
     </div>
 </div>
 
-<button id="botonAcept">
+<!-- <button id="botonAcept">
   <span></span>
   <span></span>
   <span></span>
   <span></span> Hover me
-</button>
+</button> -->
 @endsection
