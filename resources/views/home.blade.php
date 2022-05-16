@@ -25,7 +25,13 @@
             <a class=" button-search-cancelar" href="{{route('home')}}"><i class="fas fa-times"></i> Cancelar</a>
             @endif
             @else
-            <button type="submit" class="button-search"><i class="fas fa-search"></i> Buscar</button>
+            <button class="cta">
+              <span>Buscar</span>
+              <svg viewBox="0 0 13 10" height="10px" width="10px">
+                <path d="M1,5 L11,5"></path>
+                <polyline points="8 1 12 5 8 9"></polyline>
+              </svg>
+            </button>
             @if ($buscar != '')
             <a class="button-search-cancelar" href="{{route('home')}}"><i class="fas fa-times"></i> Cancelar</a>
             @endif
@@ -43,7 +49,7 @@
     </div>
     
   </div>    
-    <div class="row table-responsive" >
+  <div class="table-responsive" >
         <table class="table table-striped ">
             <thead class="table-dark">
                 <tr>
@@ -139,4 +145,10 @@
     </div>
 </div>
 
+<button id="botonAcept">
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span> Hover me
+</button>
 @endsection

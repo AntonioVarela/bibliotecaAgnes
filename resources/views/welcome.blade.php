@@ -69,6 +69,7 @@
 
         .input-search:focus {
             padding-bottom: 6px;
+            padding-left: 10px;
             border-width: 3px;
             border-image: linear-gradient(to right, #085a7a, #11aeec);
             border-image-slice: 1;
@@ -120,11 +121,14 @@
         <div class="container">
             <div class="row p-2 text-end titulos">
                 <div class="col-8 pb-2">
+                    {{-- {{DD( Hash::make(12345678))}} --}}
                     <img src="img\Agnes-logo.png" width="80">
                     <span class="text-black">COLEGIO AGNES GONXHA</span>
                 </div>
                 <div class="col-4">
-                    <a href="" class="link-light">Reglamento</a>
+                    <a href="Reglamento-biblioteca-resumen.pdf" class="link-light" download="Reglamento-biblioteca-2022">
+                        Reglamento
+                        </a>
                 </div>
                 <div class="row" style="margin-top: auto; margin-bottom:auto;">
                     <form action="{{route('buscar')}}" method="POST">
@@ -219,13 +223,14 @@
                 </div>
             </div>
             
+            
         </div>
         <footer class="bg-light mt-4 text-center fixed-bottom text-lg-start">
             <!-- Copyright -->
             <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-              Encargadas: Iliana Orduño, Norma Martínez, Esperanza Puente, Denisse Ortega
+              Encargadas: Iliana Orduño, Norma Martínez.
               <br>
-              © 2022 Copyright Colegio Agnes Gonxha
+              <span style="font-size:10px">© 2022 Copyright Colegio Agnes Gonxha</span>
               @if (Route::has('login'))
               <div class="text-right links">
                   @auth
