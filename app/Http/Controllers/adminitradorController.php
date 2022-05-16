@@ -11,6 +11,7 @@ use App\reservacion;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 
 class adminitradorController extends Controller
@@ -309,5 +310,23 @@ class adminitradorController extends Controller
         }
         $reservacion->save();
         return redirect()->back();
+    }
+
+    public function passwordGET() {
+        return view('cambioContraseña');
+    }
+
+    public function passwordPOST(Request $request) {
+        $usuario = Auth::user();
+        $nuevaPassword = $request['password'];
+        if($request['password'] == $request['passwordConfirm']) {
+            $usuario->password = Hash::make($nuevaPassword);
+            $usuario->save();
+            Alert::success('Contraseña cambiada correctamente');
+        }else {
+            Alert::error('Las contraseñas no son las mismas');
+        }
+        
+        return view('cambioContraseña');
     }
 }

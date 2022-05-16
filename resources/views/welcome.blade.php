@@ -121,7 +121,6 @@
         <div class="container">
             <div class="row p-2 text-end titulos">
                 <div class="col-8 pb-2">
-                    {{-- {{DD( Hash::make(12345678))}} --}}
                     <img src="img\Agnes-logo.png" width="80">
                     <span class="text-black">COLEGIO AGNES GONXHA</span>
                 </div>

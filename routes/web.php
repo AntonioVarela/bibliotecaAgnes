@@ -40,3 +40,5 @@ Route::post('/prueba','adminitradorController@leercodigoqr')->name("prueba");
 Route::get('/buscaqr/{id}','adminitradorController@buscaqr')->name('buscaqr')->middleware('auth');
 Route::get('/reservacion','adminitradorController@inicioreservacion')->name('reservacion')->middleware('auth');
 Route::post('/reservacionPost','adminitradorController@reservacionPost')->name('reservacionpost')->middleware('auth');
+Route::get('/password', 'adminitradorController@passwordGET')->name("password");
+Route::post('/passwordPost', 'adminitradorController@passwordPOST')->name("passwordPost");
