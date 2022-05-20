@@ -147,7 +147,7 @@
                 confirmButtonText: 'Aceptar'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = "http://192.168.100.45:8000/devuelve/"+id;
+                    window.location.href = "http://biblioteca-agnes.herokuapp.com/devuelve/"+id;
                 }
             })
         }
