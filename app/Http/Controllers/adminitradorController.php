@@ -203,6 +203,7 @@ class adminitradorController extends Controller
 
     public function buscarLibroDetalles(Request $request ) {
         $libros = libro::where('titulo', 'like' ,'%'.$request['buscar'].'%')->orWhere('autor', 'like' ,'%'.$request['buscar'].'%')->orWhere('editorial', 'like' ,'%'.$request['buscar'].'%')->orWhere('tema', 'like' ,'%'.$request['buscar'].'%')->orWhere('identificador', $request['buscar'])->get();
+        $prestamos = prestamo::all();
         if(Auth::user()){
             if(Auth::user()->grado == "all") {
                 $usuarios = alumno::all();
@@ -217,7 +218,7 @@ class adminitradorController extends Controller
         } else {
             $usuarios = alumno::all();
         }         
-        return view('homeBusqueda')->with('libros',$libros)->with('buscar',$request['buscar'])->with('usuarios',$usuarios);
+        return view('homeBusqueda')->with('libros',$libros)->with('buscar',$request['buscar'])->with('usuarios', $usuarios)->with('prestamos', $prestamos);
     }
 
     public function filtraPorNumeros(Request $request) {

@@ -60,7 +60,14 @@
               <tbody>
                 @foreach($libros as $libro)
                 @if ($libro->identificador != 0)
-                <tr class=".shadow-drop-2-br">
+                @foreach($prestamos as $prestamo)
+                  <!-- @if($prestamo->idLibro == $libro->id && $prestamo->estatus == "Prestado") -->
+                  <tr {{$prestamo->idLibro == $libro->id ? 'class=table-info' : ''}}>
+                    @break
+                    <!-- @else -->
+                  <!-- <tr class=""> -->
+                  <!-- @endif -->
+                @endforeach
                   <th  data-toggle="modal" data-target="#modelId{{$libro->id}}" scope="row">{{$libro->identificador}}</th>
                   <td data-toggle="modal" data-target="#modelId{{$libro->id}}">{{ucwords($libro->titulo)}}</td>
                   <td data-toggle="modal" data-target="#modelId{{$libro->id}}">{{ucwords($libro->autor)}}</td>

@@ -144,11 +144,4 @@
       </div>
     </div>
 </div>
-
-<!-- <button id="botonAcept">
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span> Hover me
-</button> -->
 @endsection
