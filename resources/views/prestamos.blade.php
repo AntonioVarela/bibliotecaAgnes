@@ -61,7 +61,7 @@
                 <button type="button" class="mt-3 list-group-item list-group-item-action  text-success" title="devolver" onclick="confirmarEntrega({{$item->id}})"><i class="fa-solid fa-hand-holding fa-lg"></i> {{$libro->titulo}} <span class="badge bg-secondary">{{$libro->identificador}}</span>
                   <br>Fecha de entrega: {{$item->entrega}}</button>
                 @else
-                <button type="button" class="mt-3 list-group-item list-group-item-action" disabled><i class="fa-solid fa-hand-holding fa-lg"></i> {{$libro->titulo}}</button>
+                <button type="button" class="mt-3 list-group-item list-group-item-action" disabled><i class="fa-solid fa-hand-holding fa-lg"></i> {{$libro->titulo}} <span class="badge bg-secondary">{{$libro->identificador}}</span> </button>
                 @endif
                 @endif
                 @endif
