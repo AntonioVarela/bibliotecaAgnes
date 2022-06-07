@@ -18,8 +18,9 @@ class adminitradorController extends Controller
 {
 
     public function principal() {
-        $libros = libro::orderBy('identificador', 'DESC')->paginate(10);
-        return view('welcome')->with('libros',$libros)->with('buscar','');
+        $libros = libro::all();
+        $librosMasPrestados = prestamo::select('idLibro', DB::raw('count(idLibro) as cuenta'))->groupBy('idLibro')->orderBy(DB::raw('count(idLibro)'),'DESC')->take(10)->get();
+        return view('welcome')->with('libros',$libros)->with('buscar','')->with('informe', $librosMasPrestados);
     }
     
     public function captura() {

@@ -250,32 +250,24 @@
                         <table class="table">
                             <thead>
                                 <tr>
+                                    <th>#</th>
                                     <th>Titulo</th>
                                     <th>Autor</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td scope="row">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error, unde!</td>
-                                    <td>Lorem ipsum dolor sit amet.</td>
-                                </tr>
-                                <tr>
-                                    <td scope="row">Lorem ipsum dolor sit amet consectetur. </td>
-                                    <td>Lorem ipsum dolor sit. </td>
-                                </tr>
-                                <tr>
-                                    <td scope="row">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error, unde!</td>
-                                    <td>Lorem ipsum dolor sit amet.</td>
-                                </tr>
-                                <tr>
-                                    <td scope="row">Lorem ipsum dolor sit amet consectetur. </td>
-                                    <td>Lorem ipsum dolor sit. </td>
-                                </tr>
-                                <tr>
-                                    <td scope="row">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error, unde!</td>
-                                    <td>Lorem ipsum dolor sit amet.</td>
-                                </tr>
                                 
+                            @foreach ($libros as $libro)
+                            @foreach ($informe as $tupla)
+                                @if($tupla->idLibro == $libro->id)
+                                <tr>
+                                <td>{{$tupla->cuenta}}</td>
+                                <td scope="row">{{$libro->titulo}}</td>
+                                <td>{{$libro->autor}}</td>
+                                </tr>
+                                @endif
+                                @endforeach
+                            @endforeach
                             </tbody>
                         </table>
                     </div>
