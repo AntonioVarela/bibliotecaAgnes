@@ -256,9 +256,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                
-                            @foreach ($libros as $libro)
                             @foreach ($informe as $tupla)
+                            @foreach ($libros as $libro)
                                 @if($tupla->idLibro == $libro->id)
                                 <tr>
                                 <td>{{$tupla->cuenta}}</td>
