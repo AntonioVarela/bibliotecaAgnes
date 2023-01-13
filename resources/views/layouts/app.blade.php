@@ -14,7 +14,7 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="{{ asset('select2-4.0.13\dist\js\select2.min.js') }}" defer></script>
-    <link href="{{ asset("select2-4.0.13\dist\css\select2.min.css")}}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('select2-4.0.13\dist\css\select2.min.css')}}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.2.0/dist/select2-bootstrap-5-theme.min.css" />
 <!-- Or for RTL support -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.2.0/dist/select2-bootstrap-5-theme.rtl.min.css" />
@@ -84,7 +84,7 @@
                                 <a class="dropdown-item" href="{{ route('password') }}">Cambiar contraseña</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        {{ __('Cerrar sesión') }}
                                     </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

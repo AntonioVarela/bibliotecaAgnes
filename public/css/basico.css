@@ -100,12 +100,12 @@ body {
     font-size: 1rem;
     color: rgb(0, 0, 0);
     padding: 7px 0;
-    background: transparent;
+    background: rgba(255, 255, 255, 0);
     transition: border-color 0.2s;
 }
 
 .input-search::placeholder {
-    color: rgb(102, 101, 101);
+    color: rgb(0, 0, 0) !important;
 }
 
 .input-search:focus {

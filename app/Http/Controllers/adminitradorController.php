@@ -20,7 +20,9 @@ class adminitradorController extends Controller
     public function principal() {
         $libros = libro::all();
         $librosMasPrestados = prestamo::select('idLibro', DB::raw('count(idLibro) as cuenta'))->groupBy('idLibro')->orderBy( DB::raw('count(idLibro)'),'DESC')->take(10)->get();
-        return view('welcome')->with('libros',$libros)->with('buscar','')->with('informe', $librosMasPrestados);
+        $rankingGrupo = DB::table('alumno')->select(DB::raw('count(alumno.grado) as librosPrestados'),'alumno.grado')->groupBy('alumno.grado')->join('prestamo', 'alumno.id', '=', 'prestamo.idUsuario')->get();
+        $alumnosLectores = DB::table('alumno')->select(DB::raw('COUNT(alumno.nombre) AS librosPrestados'), 'alumno.nombre')->groupBy('alumno.nombre')->join('prestamo', 'alumno.id', '=', 'prestamo.idUsuario')->groupBy('alumno.nombre')->orderBy('librosPrestados','DESC')->take(5)->get();
+        return view('welcome')->with('libros',$libros)->with('buscar','')->with('informe', $librosMasPrestados)->with('rankingGrupo', $rankingGrupo)->with('alumnosLectores', $alumnosLectores);
     }
     
     public function captura() {
@@ -123,24 +125,22 @@ class adminitradorController extends Controller
 
     public function prestamos() {
         $libros = libro::all();
-         if(Auth::user()->grado == "all") {
+         if(Auth::user()->grado == "all") 
             $usuarios = alumno::all();
-         }else {
-            if(Auth::user()->grado == "s") {
+          else 
+            if(Auth::user()->grado == "s") 
                 $usuarios = alumno::where('grado','1°A S')->orwhere('grado','1°B S')->orwhere('grado','2°A S')
                 ->orwhere('grado','2°B S')->orwhere('grado','3°A S')->orwhere('grado','3°B S')->get();
-             } else {
-                 $usuarios = alumno::where('grado',Auth::user()->grado)->get();
-             }
-         }
+             else 
+                $usuarios = alumno::where('grado',Auth::user()->grado)->get();
+         
          
          $resultado = collect([]);
          foreach($usuarios as $alumno){
             $prestamos = prestamo::where('idUsuario',$alumno->id)->get();
             if($prestamos->count() != 0)
-                        $resultado->push($prestamos);
+                $resultado->push($prestamos);
          }
-        //  $librosMasPrestados = DB::raw('SELECT COUNT(idLibro ) AS cuenta, idLibro FROM `biblioteca`.`prestamo`GROUP BY idLibro');
         return view('prestamos')->with('usuarios',$resultado)->with('libros',$libros)->with('prestamos', $prestamos)->with('buscar','')->with('alumnos',$usuarios);
     }
 
