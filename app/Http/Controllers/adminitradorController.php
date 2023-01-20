@@ -8,6 +8,7 @@ use App\logs;
 use App\prestamo;
 use App\alumno;
 use App\reservacion;
+use App\User;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -88,15 +89,16 @@ class adminitradorController extends Controller
     }
 
     public function informesGET() {
-        // $usuarios = usuarios::all();
-        // $libros = libro::all();
-        // $prestamos = prestamo::all();
+        $usuarios = alumno::all();
+        $libros = libro::all();
+        $prestamos = prestamo::all();
         // $librosMasPrestados = DB::table('prestamo')->select(DB::raw('COUNT(idLibro) AS cuenta, idLibro'))->groupBy('idLibro')->get();
         // $usuariosConMasPrestamos = DB::table('prestamo')->select(DB::raw('COUNT(idUsuario) AS cuenta, idUsuario'))->groupBy('idUsuario')->get();
         // // $noDevueltos = DB::table('libro')->select(DB::raw('SELECT * FROM `biblioteca`.`prestamo` WHERE estatus = "Prestado"  AND  DATE(entrega) <= DATE(NOW())'))->get();
         // $noDevueltos = prestamo::where( 'estatus', "Prestado" )->where('entrega','<=', DATE(NOW()))->get();
         // // dd($noDevuletos);
         // return view('informes')->with('libros',$libros)->with('usuarios',$usuarios)->with('librosMasPrestados',$librosMasPrestados)->with('usuariosConMasPrestamos',$usuariosConMasPrestamos)->with('noDevueltos',$noDevueltos);
+        return view('informes')->with('usuarios', $usuarios)->with('libros', $libros)->with('prestamos', $prestamos);
     }
 
     public function modificaLibroPOST(Request $request, $id){
@@ -137,11 +139,28 @@ class adminitradorController extends Controller
          
          $resultado = collect([]);
          foreach($usuarios as $alumno){
-            $prestamos = prestamo::where('idUsuario',$alumno->id)->get();
+            $prestamos = prestamo::where('idUsuario',$alumno->id)->where('estatus', 'Prestado')->get();
             if($prestamos->count() != 0)
                 $resultado->push($prestamos);
          }
         return view('prestamos')->with('usuarios',$resultado)->with('libros',$libros)->with('prestamos', $prestamos)->with('buscar','')->with('alumnos',$usuarios);
+    }
+
+    public function prestamosFast() {
+        if(Auth::user()->grado == "all") 
+            $alumnos = alumno::all();
+        else 
+            if(Auth::user()->grado == "s") 
+                $alumnos = alumno::where('grado','1°A S')->orwhere('grado','1°B S')->orwhere('grado','2°A S')
+                ->orwhere('grado','2°B S')->orwhere('grado','3°A S')->orwhere('grado','3°B S')->get();
+            else 
+                $alumnos = alumno::where('grado',Auth::user()->grado)->get();
+        $prestamos = prestamo::where('estatus','Prestado')->get();
+        $libros = libro::all();
+        $fecha = DATE('Y-m-d');
+        $prestamosPendientes = prestamo::where('entrega','<',$fecha)->where('estatus','Prestado')->get();
+        // dd($prestamosPendientes);
+        return view('prestamos2')->with('alumnos', $alumnos)->with('prestamos', $prestamos)->with('libros', $libros)->with('prestamosPendientes',$prestamosPendientes);
     }
 
     public function buscarPrestamo(Request $request ) {
@@ -168,7 +187,13 @@ class adminitradorController extends Controller
         $log->detalles = "recibio un libro";
         $log->save();
         Alert::success('Movimiento realizado con exito');
-        return redirect("prestamos");
+        return redirect("prestamosfast");
+    }
+    public function devuelveRanking($id) {
+        $prestamo = prestamo::find($id);
+        $prestamo->ranking = "on";
+        dd($prestamo);
+        $prestamo->save();
     }
 
     public function eliminaLibro($id) {
@@ -236,6 +261,7 @@ class adminitradorController extends Controller
         $prestamo->idUsuario = $request['idUsuario'];
         $prestamo->prestamo = $request['fechaPrestamo'];
         $prestamo->estatus = "Prestado";
+        $prestamo->ranking = $request['ranking'];
         if($libro->categoria == "Bronce")
             $prestamo->entrega = date("Y-m-d",strtotime($prestamo->prestamo."+ 5 days"));
         if($libro->categoria == "Plata")
@@ -285,7 +311,8 @@ class adminitradorController extends Controller
     public function inicioreservacion () {
         $data = reservacion::all();
         $json = json_encode($data);
-        return view('reservacion')->with("datos",$json);
+        $maestros = user::all();
+        return view('reservacion')->with("datos",$json)->with('maestros',$maestros);
     }
 
     public function reservacionPost(Request $request) {
@@ -313,6 +340,31 @@ class adminitradorController extends Controller
         $reservacion->save();
         return redirect()->back();
     }
+
+    public function reservacionPostOtro(Request $request) {
+        $data = reservacion::all();
+        $hora = $request['horaO'] . ":" . $request['minutoO'];
+        $reservacion = new reservacion();
+        $reservacion->fecha = $request['fechaO'];
+        $reservacion->hora = $hora;
+        $fechatexto = $request['fechaO'] . " " . $hora;
+        $NuevaFecha = strtotime ( '+30 minute' , strtotime ($fechatexto) ) ; 
+        $reservacion->title = $request['maestro'];
+        $reservacion->start = $fechatexto;
+        $reservacion->end = date ( 'Y-m-d H:i:s' , $NuevaFecha);
+        $reservacion->color = $request['colorO'];
+        // dd($reservacion);
+        
+        foreach($data as $evento){
+            if($evento->fecha == $reservacion->fecha && $evento->hora == $reservacion->hora){
+                Alert::error('error al reservar a esa hora');
+                return redirect()->back();
+            }  
+        }
+        $reservacion->save();
+        return redirect()->back();
+    }
+
 
     public function passwordGET() {
         return view('cambioContraseña');

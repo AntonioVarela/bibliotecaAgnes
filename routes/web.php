@@ -23,6 +23,7 @@ Route::get('/captura', 'adminitradorController@captura')->middleware('auth')->na
 Route::get('/prestamos', 'adminitradorController@prestamos')->middleware('auth')->name('prestamos');
 Route::get('/informes', 'adminitradorController@informesGET')->middleware('auth')->name('informes');
 Route::get('/devuelve/{id}', 'adminitradorController@devuelveGET')->middleware('auth')->name('devuelve');
+Route::get('/devuelveranking/{id}', 'adminitradorController@devuelveRanking')->middleware('auth')->name('devuelveranking');
 Route::POST('/prestamoPOST', 'adminitradorController@prestamoPOST')->middleware('auth')->name('prestamoPOST');
 Route::POST('/guarda', 'adminitradorController@capturaPOST')->middleware('auth')->name('guarda');
 Route::POST('/eliminaLibro/{id}', 'adminitradorController@eliminaLibro')->middleware('auth')->name('eliminaLibro');
@@ -40,5 +41,8 @@ Route::post('/prueba','adminitradorController@leercodigoqr')->name("prueba");
 Route::get('/buscaqr/{id}','adminitradorController@buscaqr')->name('buscaqr')->middleware('auth');
 Route::get('/reservacion','adminitradorController@inicioreservacion')->name('reservacion')->middleware('auth');
 Route::post('/reservacionPost','adminitradorController@reservacionPost')->name('reservacionpost')->middleware('auth');
+Route::post('/reservacionpostotro','adminitradorController@reservacionPostotro')->name('reservacionpostotro')->middleware('auth');
 Route::get('/password', 'adminitradorController@passwordGET')->name("password");
 Route::post('/passwordPost', 'adminitradorController@passwordPOST')->name("passwordPost");
+
+Route::get('/prestamosfast','adminitradorController@prestamosFast')->name('prestamosFast');

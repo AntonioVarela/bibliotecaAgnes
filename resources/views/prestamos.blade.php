@@ -22,8 +22,6 @@
             @endif
           @endif
         </form>
-
-
       </div>
     </div>
     </div>
@@ -107,11 +105,12 @@
                   <div class="mb-3">
                     <label for="fechaPrestamo" class="form-label">Fecha Prestamo</label>
                     <input type="date" class="form-control" id="fechaPrestamo" value="<?php echo date('Y-m-d'); ?>" name="fechaPrestamo" required>
-                  </div>        
+                  </div>    
+                  <label for="">¿Deseas agregar este libro al ranking?</label>
+                  <input type="checkbox" name="ranking" id="raking" checked>  
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            {{-- <button type="submit" class="btn btn-primary">Guardar</button> --}}
             <button type="button" onclick="confirmarPrestamo()" class="btn btn-primary">Guardar</button>
             </div>
         </form>

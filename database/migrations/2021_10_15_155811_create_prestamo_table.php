@@ -20,6 +20,7 @@ class CreatePrestamoTable extends Migration
             $table->date('prestamo');
             $table->date('entrega');
             $table->string("estatus");
+            $table->boolean('ranking')->default(1);
             $table->softDeletes();
             $table->timestamps();
         });

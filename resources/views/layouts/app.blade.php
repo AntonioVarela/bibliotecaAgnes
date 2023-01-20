@@ -58,7 +58,7 @@
                             <a class="nav-link menu-a {{ Request::is('home') ? 'active2' : '' }}" href="{{ route('home') }}">Inventario</a>
                         </li>
                         <li>
-                            <a class="nav-link menu-a {{ Request::is('prestamos') ? 'active2' : '' }}" href="{{ route('prestamos') }}">Prestamos</a>
+                            <a class="nav-link menu-a {{ Request::is('prestamosFast') ? 'active2' : '' }}" href="{{ route('prestamos') }}">Prestamos</a>
                         </li>
                         <li>
                             <a class="nav-link menu-a {{ Request::is('reservacion') ? 'active2' : '' }}" href="{{ route('reservacion') }}">Reservación</a>
@@ -121,7 +121,7 @@
         }
 
         function confirmarPrestamo() {
-            Swal.fire({
+            const {value: accept } = Swal.fire({
                 title: 'Estas Seguro de prestar este libro?',
                 text: "El prestamo no se puede modificar",
                 icon: 'warning',
@@ -137,19 +137,25 @@
         }
 
         function confirmarEntrega(id) {
-            Swal.fire({
+            const { value: accept } = Swal.fire({
                 title: 'Estas Seguro de recibir este libro?',
                 text: "Esta accion no se puede modificar",
                 icon: 'warning',
+                input: 'checkbox',
+                inputValue:1,
+                inputPlaceholder: '¿Agregar al ranking de lectura?',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Aceptar'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = "http://biblioteca-agnes.herokuapp.com/devuelve/"+id;
+                    window.location.href = "https://sistemaagnes.com/biblioteca/devuelve/"+id;
                 }
             })
+            if(accept) {
+                window.location.href = "https://sistemaagnes.com/biblioteca/devuelveranking/"+id;
+            }
         }
 
         function cambioColor() {
