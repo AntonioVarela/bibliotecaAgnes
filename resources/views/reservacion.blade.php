@@ -27,14 +27,13 @@
             navLinks: true,
             eventMouseEnter: function(info) {
               style = info.event.backgroundColor;
-              info.el.style.borderColor = 'red';
-              info.el.style = "box-shadow: rgb(216 2 255) 0px 0px 10px 6px;border:none; background-color:rgb(216 2 255)";
+              // info.el.style.borderColor = 'red';
+              // info.el.style = "box-shadow: rgb(216 2 255) 0px 0px 10px 6px;border:none; background-color:rgb(216 2 255)";
               var evento = info.event;
               // console.log(info.event.backgroundColor);
             },
             eventMouseLeave: function(info) {
-              info.el.style = "background-color:"+style+"; border:none";
-              console.log(style);
+              // info.el.style = "background-color:"+style+"; border:none";
             },
       views: { 
         timeGridWeek: {

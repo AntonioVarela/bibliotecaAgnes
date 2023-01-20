@@ -58,7 +58,7 @@
                             <a class="nav-link menu-a {{ Request::is('home') ? 'active2' : '' }}" href="{{ route('home') }}">Inventario</a>
                         </li>
                         <li>
-                            <a class="nav-link menu-a {{ Request::is('prestamosFast') ? 'active2' : '' }}" href="{{ route('prestamos') }}">Prestamos</a>
+                            <a class="nav-link menu-a {{ Request::is('prestamosFast') ? 'active2' : '' }}" href="{{ route('prestamosFast') }}">Prestamos</a>
                         </li>
                         <li>
                             <a class="nav-link menu-a {{ Request::is('reservacion') ? 'active2' : '' }}" href="{{ route('reservacion') }}">Reservación</a>

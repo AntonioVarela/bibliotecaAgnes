@@ -192,7 +192,6 @@ class adminitradorController extends Controller
     public function devuelveRanking($id) {
         $prestamo = prestamo::find($id);
         $prestamo->ranking = "on";
-        dd($prestamo);
         $prestamo->save();
     }
 
