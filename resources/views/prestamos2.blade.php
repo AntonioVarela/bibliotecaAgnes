@@ -15,16 +15,16 @@
         <th>Libro</th>
         <th>Posicion</th>
         <th>Fecha Entrega</th>
+        <th>Opciones</th>
     </thead>
     <tbody>
         @foreach ($prestamos as $prestamo)
-        <tr onclick="confirmarEntrega({{$prestamo->id}})">
+        <tr>
             @foreach ($alumnos as $alumno)
-            @if($alumno->id == $prestamo->idUsuario)
+            @if($alumno->id == $prestamo->idUsuario && $prestamo->entrega >= DATE('Y-m-d'))
                 <td class="text-capitalize">{{$alumno->nombre}}</td>
                 <td>{{$alumno->grado}}</td>
-            @endif
-            @endforeach
+            
             @foreach ($libros as $libro)
             @if($libro->id == $prestamo->idLibro)
                 <td>{{$libro->titulo}}</td>
@@ -32,6 +32,13 @@
             @endif
             @endforeach
             <td>{{$prestamo->entrega}}</td>
+            <td>
+                <button class="btn btn-danger btn-sm" onclick="confirmarEntrega({{$prestamo->id}})">Devolver</button>
+                <button class="btn btn-warning btn-sm" onclick="renovarPrestamo({{$prestamo->id}})">Renovar</button>
+            </td>
+            @endif
+            @endforeach
+            
         </tr>
         @endforeach
     </tbody>
@@ -46,24 +53,29 @@
         <th>posicion</th>
         <th>Estatus</th>
         <th>Fecha Entrega</th>
+        <th>Opciones</th>
     </thead>
     <tbody>
         @foreach ($prestamosPendientes as $prestamo)
-        <tr onclick="confirmarEntrega({{$prestamo->id}})">
+        <tr>
             @foreach ($alumnos as $alumno)
             @if($alumno->id == $prestamo->idUsuario)
                 <td>{{$alumno->nombre}}</td>
                 <td>{{$alumno->grado}}</td>
-            @endif
-            @endforeach
-            @foreach ($libros as $libro)
-            @if($libro->id == $prestamo->idLibro)
-                <td>{{$libro->titulo}}</td>
-                <td>{{$libro->identificador}}</td>
-            @endif
-            @endforeach
+                @foreach ($libros as $libro)
+                @if($libro->id == $prestamo->idLibro)
+                    <td>{{$libro->titulo}}</td>
+                    <td>{{$libro->identificador}}</td>
+                @endif
+                @endforeach
             <td>{{$prestamo->estatus}}</td>
             <td>{{$prestamo->entrega}}</td>
+            <td>
+                <button class="btn btn-danger btn-sm"  onclick="confirmarEntrega({{$prestamo->id}})">Devolver</button>
+                <button class="btn btn-warning btn-sm" onclick="renovarPrestamo({{$prestamo->id}})">Renovar</button>
+            </td>
+            @endif
+            @endforeach
         </tr>
         @endforeach
     </tbody>

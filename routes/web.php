@@ -45,4 +45,5 @@ Route::post('/reservacionpostotro','adminitradorController@reservacionPostotro')
 Route::get('/password', 'adminitradorController@passwordGET')->name("password");
 Route::post('/passwordPost', 'adminitradorController@passwordPOST')->name("passwordPost");
 
-Route::get('/prestamosfast','adminitradorController@prestamosFast')->name('prestamosFast');
+Route::get('/prestamosfast','adminitradorController@prestamosFast')->name('prestamosFast')->middleware('auth');
+Route::get('/renuevaLibro/{id}','adminitradorController@renuevaLibro')->name('renuevaLibro')->middleware('auth');

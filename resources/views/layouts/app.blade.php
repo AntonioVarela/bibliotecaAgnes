@@ -157,6 +157,21 @@
                 window.location.href = "https://sistemaagnes.com/biblioteca/devuelveranking/"+id;
             }
         }
+        function renovarPrestamo(id) {
+            const { value: accept } = Swal.fire({
+                title: 'Estas Seguro de renovar este libro?',
+                text: "Se renovara 5 dias mas apartir de hoy",
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Aceptar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "https://sistemaagnes.com/biblioteca/renuevaLibro/"+id;
+                }
+            })
+        } 
 
         function cambioColor() {
             if (document.getElementById("subir").files.length != 0) {

@@ -159,7 +159,6 @@ class adminitradorController extends Controller
         $libros = libro::all();
         $fecha = DATE('Y-m-d');
         $prestamosPendientes = prestamo::where('entrega','<',$fecha)->where('estatus','Prestado')->get();
-        // dd($prestamosPendientes);
         return view('prestamos2')->with('alumnos', $alumnos)->with('prestamos', $prestamos)->with('libros', $libros)->with('prestamosPendientes',$prestamosPendientes);
     }
 
@@ -176,8 +175,16 @@ class adminitradorController extends Controller
         return view('busquedaPrestamos')->with('usuarios',$resultado)->with('buscar',$request['buscar'])->with('alumnos',$usuarios)->with('libros',$libros);
     }
 
+    public function renuevaLibro($id) {
+        $prestamo = prestamo::find($id);
+        $prestamo->entrega = date("Y-m-d",strtotime($prestamo->entrega."+ 5 days"));
+        dd($prestamo);
+        $prestamo->save();
+        Alert::success('Movimiento realizado con exito');
+        return redirect("prestamosfast");
+    }
+
     public function devuelveGET($id) {
-        // dd($id);
         $prestamo = prestamo::find($id);
         $prestamo->estatus = "Devuelto";
         $prestamo->save();
