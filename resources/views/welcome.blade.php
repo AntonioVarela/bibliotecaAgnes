@@ -456,10 +456,12 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($alumnosLectores as $tupla)
+                                    @if($tupla->fase == "2")
                                     <tr>
                                         <td>{{$tupla->librosPrestados}}</td>
                                         <td scope="row">{{$tupla->nombre}}</td>
                                     </tr>
+                                    @endif
                                     @endforeach
                                 </tbody>
                             </table>

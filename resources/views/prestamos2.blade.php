@@ -96,7 +96,7 @@
                 <div class="mb-3">
                     <label for="nombre" class="form-label">Libro: </label>
                     <select name="idLibro" id="idLibro" class="form-control" style="width: 100%">
-                        @foreach ($libros as $libro)
+                        @foreach ($librosSinPrestamos as $libro)
                             <option value="{{$libro->id}}">{{ucwords($libro->titulo)}} (<strong>Posicion:</strong>{{$libro->identificador}})</option>
                         @endforeach
                     </select>
@@ -105,7 +105,7 @@
                     <label for="apellidoP" class="form-label">Usuario: </label>
                     <select name="idUsuario" id="idUsuario" class="form-control" style="width: 100%">
                         @foreach ($alumnos as $usuario)
-                            <option value="{{$usuario->id}}">{{ucwords($usuario->nombre)}} ({{$usuario->grado}}) </option>
+                            <option value="{{$usuario->id}}">{{ucwords($usuario->nombre)}} ({{$usuario->grado}}) {{$usuario->estatus}} </option>
                         @endforeach
                     </select>                
                   </div>

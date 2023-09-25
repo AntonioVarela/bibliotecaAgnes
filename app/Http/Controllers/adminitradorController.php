@@ -22,7 +22,7 @@ class adminitradorController extends Controller
         $libros = libro::all();
         $librosMasPrestados = prestamo::select('idLibro', DB::raw('count(idLibro) as cuenta'))->groupBy('idLibro')->orderBy( DB::raw('count(idLibro)'),'DESC')->take(10)->get();
         $rankingGrupo = DB::table('alumno')->select(DB::raw('count(alumno.grado) as librosPrestados'),'alumno.grado')->groupBy('alumno.grado')->join('prestamo', 'alumno.id', '=', 'prestamo.idUsuario')->get();
-        $alumnosLectores = DB::table('alumno')->select(DB::raw('COUNT(alumno.nombre) AS librosPrestados'), 'alumno.nombre')->groupBy('alumno.nombre')->join('prestamo', 'alumno.id', '=', 'prestamo.idUsuario')->groupBy('alumno.nombre')->orderBy('librosPrestados','DESC')->take(5)->get();
+        $alumnosLectores = DB::table('alumno')->select(DB::raw('COUNT(alumno.nombre) AS librosPrestados'), 'alumno.nombre')->join('prestamo', 'alumno.id', '=', 'prestamo.idUsuario')->groupBy('alumno.nombre')->orderBy('librosPrestados','DESC')->take(5)->get();
         return view('welcome')->with('libros',$libros)->with('buscar','')->with('informe', $librosMasPrestados)->with('rankingGrupo', $rankingGrupo)->with('alumnosLectores', $alumnosLectores);
     }
     
@@ -90,15 +90,54 @@ class adminitradorController extends Controller
 
     public function informesGET() {
         $usuarios = alumno::all();
-        $libros = libro::all();
-        $prestamos = prestamo::all();
+        $libros =  DB::table('libro')
+        ->where('identificador','!=', 0)
+        ->orderBy('identificador', 'asc')
+        ->get();
+
+        $librosRepetidos = DB::table('libro')
+        ->select(DB::raw('count(identificador) as cuenta'),'identificador')
+        ->where('identificador','!=', 0)
+        ->groupBy('identificador')
+        ->get();
+        $totalLibros = DB::table('libro')->where('identificador','!=', 0)->get();
+        $totalLibrosPrestados = prestamo::where('estatus','Prestado')->where('entrega','>',date('Y-m-d'))->get();
+        $totalLibrosPrestadosVencidos = prestamo::where('estatus','Prestado')->where('entrega','<',date('Y-m-d'))->get();
+        $ultimoIdentificadorDisponible = DB::table('libro')
+        ->where('identificador','!=', 0)
+        ->where('identificador', '<', 5000)
+        ->orderBy('identificador', 'desc')
+        ->first();
+        $librosPerdidos =  DB::table('libro')
+        ->where('identificador', 0)
+        ->get();
+
+        // $prestamos = prestamo::all();
+        // for($contador = 0; $contador < $libros->count(); $contador++)
+        // {
+            
+        //     if($libros[$contador]->identificador != ($contador+1))
+        //     {
+        //         echo("identificador: ". $libros[$contador]->identificador);
+        //         echo("  falta: ". $contador . "<br>");
+        //     }
+            
+            
+        // }
         // $librosMasPrestados = DB::table('prestamo')->select(DB::raw('COUNT(idLibro) AS cuenta, idLibro'))->groupBy('idLibro')->get();
         // $usuariosConMasPrestamos = DB::table('prestamo')->select(DB::raw('COUNT(idUsuario) AS cuenta, idUsuario'))->groupBy('idUsuario')->get();
         // // $noDevueltos = DB::table('libro')->select(DB::raw('SELECT * FROM `biblioteca`.`prestamo` WHERE estatus = "Prestado"  AND  DATE(entrega) <= DATE(NOW())'))->get();
         // $noDevueltos = prestamo::where( 'estatus', "Prestado" )->where('entrega','<=', DATE(NOW()))->get();
         // // dd($noDevuletos);
         // return view('informes')->with('libros',$libros)->with('usuarios',$usuarios)->with('librosMasPrestados',$librosMasPrestados)->with('usuariosConMasPrestamos',$usuariosConMasPrestamos)->with('noDevueltos',$noDevueltos);
-        return view('informes')->with('usuarios', $usuarios)->with('libros', $libros)->with('prestamos', $prestamos);
+        return view('informes')->with('usuarios', $usuarios)
+        ->with('libros', $libros)
+        ->with('totalLibros', $totalLibros->count())
+        ->with('librosRepetidos', $librosRepetidos)
+        ->with('librosPrestados',$totalLibrosPrestados->count())
+        ->with('vencidos',$totalLibrosPrestadosVencidos->count())
+        ->with('ultimoDisponible', $ultimoIdentificadorDisponible->identificador)
+        ->with('librosPerdidos', $librosPerdidos);
     }
 
     public function modificaLibroPOST(Request $request, $id){
@@ -125,41 +164,89 @@ class adminitradorController extends Controller
         return redirect("home");
     }
 
-    public function prestamos() {
-        $libros = libro::all();
-         if(Auth::user()->grado == "all") 
-            $usuarios = alumno::all();
-          else 
-            if(Auth::user()->grado == "s") 
-                $usuarios = alumno::where('grado','1°A S')->orwhere('grado','1°B S')->orwhere('grado','2°A S')
-                ->orwhere('grado','2°B S')->orwhere('grado','3°A S')->orwhere('grado','3°B S')->get();
-             else 
-                $usuarios = alumno::where('grado',Auth::user()->grado)->get();
+    // public function prestamos() {
+        
+    //     $usuariosSinPrestamos = collect([]);
+    //     $resultado = collect([]);
+    //     $librosPrestados = prestamo::where('status','Prestado')->get();
+    //     $libros = libro::all();
+
+
+    //      if(Auth::user()->grado == "all") 
+    //         $usuarios = alumno::all();
+    //       else 
+    //         if(Auth::user()->grado == "s") 
+    //             $usuarios = alumno::where('grado','1°A S')->orwhere('grado','1°B S')->orwhere('grado','2°A S')
+    //             ->orwhere('grado','2°B S')->orwhere('grado','3°A S')->orwhere('grado','3°B S')->get();
+    //          else 
+    //             $usuarios = alumno::where('grado',Auth::user()->grado)->get();
          
          
-         $resultado = collect([]);
-         foreach($usuarios as $alumno){
-            $prestamos = prestamo::where('idUsuario',$alumno->id)->where('estatus', 'Prestado')->get();
-            if($prestamos->count() != 0)
-                $resultado->push($prestamos);
-         }
-        return view('prestamos')->with('usuarios',$resultado)->with('libros',$libros)->with('prestamos', $prestamos)->with('buscar','')->with('alumnos',$usuarios);
-    }
+         
+    //      foreach($usuarios as $alumno){
+    //         $prestamos = prestamo::where('idUsuario',$alumno->id)->where('estatus', 'Prestado')->get();
+    //         if($prestamos->count() != 0)
+    //             $resultado->push($prestamos);
+    //      }
+    //     return view('prestamos')->with('usuarios',$resultado)->with('libros',$libros)->with('prestamos', $prestamos)->with('buscar','')->with('alumnos',$usuarios);
+    // }
 
     public function prestamosFast() {
+        $librosSinPrestamos = collect([]);
+        $usuariosSinPrestamos = collect([]);
+
+        $librosConPrestamos = DB::table('libro')
+        ->leftJoin('prestamo', 'libro.id', '=', 'prestamo.idLibro')
+        ->select('libro.*', 'prestamo.estatus')
+        ->get();
+
+        foreach($librosConPrestamos as $libro)
+           if($libro->estatus != "Prestado")
+            $librosSinPrestamos->push($libro);
+        
         if(Auth::user()->grado == "all") 
             $alumnos = alumno::all();
         else 
             if(Auth::user()->grado == "s") 
                 $alumnos = alumno::where('grado','1°A S')->orwhere('grado','1°B S')->orwhere('grado','2°A S')
                 ->orwhere('grado','2°B S')->orwhere('grado','3°A S')->orwhere('grado','3°B S')->get();
-            else 
+            else {
                 $alumnos = alumno::where('grado',Auth::user()->grado)->get();
+            }
+               
         $prestamos = prestamo::where('estatus','Prestado')->get();
         $libros = libro::all();
         $fecha = DATE('Y-m-d');
         $prestamosPendientes = prestamo::where('entrega','<',$fecha)->where('estatus','Prestado')->get();
-        return view('prestamos2')->with('alumnos', $alumnos)->with('prestamos', $prestamos)->with('libros', $libros)->with('prestamosPendientes',$prestamosPendientes);
+        return view('prestamos2')->with('alumnos', $alumnos)->with('prestamos', $prestamos)->with('libros', $libros)->with('prestamosPendientes',$prestamosPendientes)->with('librosSinPrestamos',$librosSinPrestamos);
+    }
+
+    public function prestamoPOST(Request $request) {
+        $prestamoAnterior = prestamo::where('idUsuario',$request['idUsuario'])->where('estatus','Prestado')->get(); 
+        // dd($prestamoAnterior);
+        if($prestamoAnterior->count() == 0)
+        {
+            $libro = libro::find($request['idLibro']);
+            $prestamo = new prestamo();
+            $prestamo->idLibro = $request['idLibro'];
+            $prestamo->idUsuario = $request['idUsuario'];
+            $prestamo->prestamo = $request['fechaPrestamo'];
+            $prestamo->estatus = "Prestado";
+            $prestamo->ranking = $request['ranking'];
+            $prestamo->entrega = date("Y-m-d",strtotime($prestamo->prestamo."+ 5 days"));
+            $prestamo->perido = '2022-2023/II';
+            $prestamo->fase = '2';
+            $prestamo->save();
+            $log = new logs();
+            $log->idUsuario = Auth::user()->id;
+            $log->idCambio = $prestamo->id;
+            $log->detalles = "Presto de un libro";
+            $log->save();
+            Alert::success('Movimiento realizado con exito');
+        }else
+            Alert::error('El alumno ya tiene un prestamo actualmente y solo se puede prestar uno por alumno, pide el libro primero');
+        
+        return redirect("prestamosfast");
     }
 
     public function buscarPrestamo(Request $request ) {
@@ -260,31 +347,7 @@ class adminitradorController extends Controller
 
     }
 
-    public function prestamoPOST(Request $request) {
-        $libro = libro::find($request['idLibro']);
-        $prestamo = new prestamo();
-        $prestamo->idLibro = $request['idLibro'];
-        $prestamo->idUsuario = $request['idUsuario'];
-        $prestamo->prestamo = $request['fechaPrestamo'];
-        $prestamo->estatus = "Prestado";
-        $prestamo->ranking = $request['ranking'];
-        if($libro->categoria == "Bronce")
-            $prestamo->entrega = date("Y-m-d",strtotime($prestamo->prestamo."+ 5 days"));
-        if($libro->categoria == "Plata")
-            $prestamo->entrega = date("Y-m-d",strtotime($prestamo->prestamo."+ 7 days"));
-        if($libro->categoria == "Oro")
-            $prestamo->entrega = date("Y-m-d",strtotime($prestamo->prestamo."+ 10 days"));
-        if($libro->categoria == "Platino")
-            $prestamo->entrega = date("Y-m-d",strtotime($prestamo->prestamo."+ 15 days"));
-        $prestamo->save();
-        $log = new logs();
-        $log->idUsuario = Auth::user()->id;
-        $log->idCambio = $prestamo->id;
-        $log->detalles = "Presto de un libro";
-        $log->save();
-        Alert::success('Movimiento realizado con exito');
-        return redirect("prestamos");
-    }
+    
 
     public function etiquetas() {
         $libros = DB::table('libro')->orderBy('identificador', 'desc')->paginate(48);
